@@ -42,12 +42,13 @@ add_subdirectory(Main)"
     )]
 }
 
-pub fn get_main_files(
+pub fn get_main_files<'a>(
     name: &str,
-) -> Vec<File<'_>> {
-    vec![File::new(
-        name,
-        "cmake_minimum_required(VERSION 3.20)
+) -> Vec<File<'a>> {
+    vec![
+        File::new(
+            "CMakeLists.txt",
+             format!("cmake_minimum_required(VERSION 3.20)
 project({name})
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -56,7 +57,17 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_executable(${{PROJECT_NAME}}
     Private/main.cpp
-)"
-        .to_string(),
-    )]
+)")
+        ),
+        File::new(
+            "main.cpp",
+            "#include <iostream>
+
+int main()
+{
+    std::operator<<(std::cout, \"Hello World!\\n\");
+}"
+                .to_string(),
+        ),
+    ]
 }
