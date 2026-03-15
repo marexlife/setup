@@ -53,21 +53,17 @@ impl UserRequest {
         }
     }
 
-    pub fn visit<NewProject>(&self, new_project: NewProject)
+    pub fn visit<NewProj, NewMod>(&self, new_proj: NewProj, new_mod: NewMod)
     where
-        NewProject: Fn(&str),
+        NewProj: Fn(&str),
+        NewMod: Fn(&str),
     {
         match (self.instruction.as_str(), &self.name) {
-            ("--help", None) => {
-                leave_with_help_screen();
-            }
-            ("--help", Some(_)) => {
-                self.leave_with_no_args_advice();
-            }
-            ("run", Some(_)) => {
-                self.leave_with_no_args_advice();
-            }
-            ("new", Some(name)) => new_project(name),
+            ("--help", None) => leave_with_help_screen(),
+            ("--help", Some(_)) => self.leave_with_no_args_advice(),
+            ("run", Some(_)) => self.leave_with_no_args_advice(),
+            ("mod", Some(name)) => new_mod(name),
+            ("new", Some(name)) => new_proj(name),
             _ => leave_with_advice(),
         }
     }
