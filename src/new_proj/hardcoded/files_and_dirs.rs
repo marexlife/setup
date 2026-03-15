@@ -20,33 +20,39 @@ pub(crate) fn create_root_directory_and_files(
 
 #[must_use]
 pub(crate) fn create_source_directory_and_files(
-    name: &str,
+    parent: &str,
 ) -> String {
+    let name = "Source";
+
     create_directory_and_files(
+        parent,
         name,
-        "Source",
         file_lists::get_source_files(),
     )
 }
 
 #[must_use]
 pub(crate) fn create_main_mod_directory_and_files(
-    name: &str,
+    parent: &str,
 ) -> String {
+    let name = "Main";
+
     create_directory_and_files(
+        parent,
         name,
-        "Main",
         file_lists::get_main_mod_files(name),
     )
 }
 
 #[must_use]
 pub(crate) fn create_main_mod_private_directory_and_files(
-    name: &str,
+    parent: &str,
 ) -> String {
+    let name = "Private";
+
     create_directory_and_files(
+        parent,
         name,
-        "Private",
         file_lists::get_main_mod_private_files(),
     )
 }
