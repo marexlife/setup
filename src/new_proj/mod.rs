@@ -8,7 +8,7 @@ pub fn new_proj(name: &str) {
 
     let source_path =
         create_source_directory_and_files(
-            project_path,
+            &project_path,
         );
 
     let main_mod_path =

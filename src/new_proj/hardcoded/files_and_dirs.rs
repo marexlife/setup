@@ -7,8 +7,8 @@ use crate::utils::{
 #[must_use]
 pub(crate) fn create_root_directory_and_files(
     name: &str,
-) -> &str {
-    let path = create_directory(name);
+) -> String {
+    let path = create_directory(name.to_string());
 
     create_files(
         &name,

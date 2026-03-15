@@ -3,6 +3,24 @@ use std::{
     io::Write,
 };
 
+pub fn get_parent_directory() -> String {
+    for (i, mut arg) in std::env::args().enumerate() {
+        if i == 0 {
+            let mut pos_from_last = 0;
+
+            for (i, e)in arg.chars().enumerate() {
+                if e == '/' || e == '\\' {
+                    pos_from_last = i;
+                }
+            }
+
+            return arg.split_off(pos_from_last);
+        }
+    }
+
+    panic!("No First argument as program, something wrong with your OS?")
+}
+
 pub fn create_files(
     path: &str,
     files: Vec<crate::file::File>,
@@ -21,10 +39,8 @@ pub fn create_files(
     }
 }
 
-pub fn create_directory(name: &str) -> &str {
-    println!("CREATING: {name}");
-
-    create_dir(name).unwrap_or_else(|e| {
+pub fn create_directory(name: String) -> String {
+    create_dir(name.clone()).unwrap_or_else(|e| {
         panic!("Attempt to create directory '{}' failed with error {}!", name, e);
     });
 
@@ -37,7 +53,7 @@ pub fn create_and_get_directory(
 ) -> String {
     let new = format!("{}/{}", parent, sub);
 
-    create_directory(&new);
+    create_directory(new.clone());
 
     new
 }
