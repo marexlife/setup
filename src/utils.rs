@@ -4,21 +4,21 @@ use std::{
 };
 
 pub fn get_parent_directory() -> String {
-    for (i, mut arg) in std::env::args().enumerate() {
-        if i == 0 {
-            let mut pos_from_last = 0;
+    let dir = std::env::current_dir().unwrap_or_else(|e| {
+        panic!("couldn't get current dir with error {e}")
+    });
 
-            for (i, e)in arg.chars().enumerate() {
-                if e == '/' || e == '\\' {
-                    pos_from_last = i;
-                }
-            }
 
-            return arg.split_off(pos_from_last);
+    match dir.file_name() {
+        Some(v) => {
+            v.to_os_string()
+                .into_string()
+                .unwrap_or_else(|string| {
+                    panic!("not utf8. OsString is '{string:?}'")
+                })
         }
+        None => panic!("no file name"),
     }
-
-    panic!("No First argument as program, something wrong with your OS?")
 }
 
 pub fn create_files(
