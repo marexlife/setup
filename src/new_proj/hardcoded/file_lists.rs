@@ -1,5 +1,7 @@
 use crate::file::File;
 
+const BUILD_DIR_NAME: &str = "Build";
+
 pub fn get_root_files(
     name: &str,
 ) -> Vec<File<'_>> {
@@ -32,6 +34,16 @@ ColumnLimit: 70"
             r".cache
 build"
                 .to_string(),
+        ),
+        File::new(
+            "run.py",
+            format!(
+                "from subprocess import run
+
+run([\"cmake\", \".\", \"-B\", \"{BUILD_DIR_NAME}\"])
+run([\"cmake\", \"--build\", \"{BUILD_DIR_NAME}\"])
+run([\"./{BUILD_DIR_NAME}/Source/Main/{name}\"])"
+            ),
         ),
     ]
 }

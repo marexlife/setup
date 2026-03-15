@@ -13,6 +13,7 @@ pub fn new_proj(name: &str) {
 
     let main_mod_path =
         create_main_mod_directory_and_files(
+            name,
             &source_path,
         );
 

@@ -7,8 +7,7 @@ def soft_rm(name: str):
     except: pass
 
 
-tests_dir: str = "tests"
-project_name: str = "proj"
+project_name: str = "Project"
 
 run(["cargo", "build", "--release"])
 

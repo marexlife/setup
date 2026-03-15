@@ -33,6 +33,7 @@ pub(crate) fn create_source_directory_and_files(
 
 #[must_use]
 pub(crate) fn create_main_mod_directory_and_files(
+    project_name: &str,
     parent: &str,
 ) -> String {
     let name = "Main";
@@ -40,7 +41,9 @@ pub(crate) fn create_main_mod_directory_and_files(
     create_directory_and_files(
         parent,
         name,
-        file_lists::get_main_mod_files(name),
+        file_lists::get_main_mod_files(
+            project_name,
+        ),
     )
 }
 
