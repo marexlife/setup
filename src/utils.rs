@@ -12,10 +12,12 @@ pub fn create_files(
     }
 }
 
-pub fn create_directory(name: &str) {
+pub fn create_directory(name: &str) -> &str {
     create_dir(name).unwrap_or_else(|e| {
         panic!("Attempt to create directory '{}' failed with error {}!", name, e);
     });
+
+    name
 }
 
 pub fn create_and_get_directory(
@@ -27,13 +29,16 @@ pub fn create_and_get_directory(
     format!("{}/{}", parent, sub)
 }
 
+#[must_use]
 pub fn create_directory_and_files(
     parent: &str,
     sub: &str,
     files: Vec<crate::file::File>,
-) {
+) -> String {
     let path =
         create_and_get_directory(parent, sub);
 
     create_files(&path, files);
+
+    path
 }
