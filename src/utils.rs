@@ -1,4 +1,7 @@
-use std::fs::{File, create_dir};
+use std::{
+    fs::{File, create_dir},
+    io::Write,
+};
 
 pub fn create_files(
     path: &str,
@@ -8,7 +11,13 @@ pub fn create_files(
 
     for file in files {
         File::create(format!("{}/{}", path, file.get_name()))
-            .unwrap_or_else(|e| panic!("failed to create '{}' in path {} with error {}", file.get_name(), path, e));
+            .unwrap_or_else(|e| 
+                panic!("failed to create '{}' in path {} with error {}", file.get_name(), path, e)
+            )
+            .write_all(file.get_contents().as_bytes())
+            .unwrap_or_else(|e| 
+                panic!("failed to write contents in file '{}' with error {}", file.get_name(), e)
+            );
     }
 }
 
