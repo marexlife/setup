@@ -20,3 +20,13 @@ pub fn get_and_make_path(
 
     format!("{}/{}", name, path)
 }
+
+pub fn create_directory_and_files(
+    name: &str,
+    path: &str,
+    files: Vec<crate::file::File>,
+) {
+    let path = get_and_make_path(name, path);
+
+    create_files(&files, &path);
+}
