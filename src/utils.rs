@@ -5,7 +5,7 @@ use std::{
 
 pub fn create_files(
     path: &str,
-    files: Vec<crate::file::File<'_>>,
+    files: Vec<crate::file::File>,
 ) {
     eprintln!("path: {}", path);
 

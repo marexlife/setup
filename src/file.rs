@@ -1,11 +1,11 @@
-pub struct File<'a> {
-    name: &'a str,
+pub struct File {
+    name: String,
     contents: String,
 }
 
-impl<'a> File<'a> {
+impl File {
     pub fn new(
-        name: &'a str,
+        name: String,
         contents: String,
     ) -> Self {
         Self { name, contents }

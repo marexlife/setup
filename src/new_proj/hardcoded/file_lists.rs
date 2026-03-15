@@ -2,12 +2,10 @@ use crate::file::File;
 
 const BUILD_DIR_NAME: &str = "Build";
 
-pub fn get_root_files(
-    name: &str,
-) -> Vec<File<'_>> {
+pub fn get_root_files(name: &str) -> Vec<File> {
     vec![
         File::new(
-            "CMakeLists.txt",
+            "CMakeLists.txt".to_string(),
             format!(
                 r"cmake_minimum_required(VERSION 3.20)
 project({name})
@@ -17,12 +15,12 @@ add_subdirectory(Source)
             ),
         ),
         File::new(
-            ".clang-tidy",
+            ".clang-tidy".to_string(),
             "Checks: 'cppcoreguidelines-*'"
                 .to_string(),
         ),
         File::new(
-            ".clang-format",
+            ".clang-format".to_string(),
             r"---
 BasedOnStyle: Microsoft
 PointerAlignment: Left
@@ -30,13 +28,13 @@ ColumnLimit: 70"
                 .to_string(),
         ),
         File::new(
-            ".gitignore",
+            ".gitignore".to_string(),
             r".cache
 build"
                 .to_string(),
         ),
         File::new(
-            "run.py",
+            "run.py".to_string(),
             format!(
                 "from subprocess import run
 
@@ -48,9 +46,9 @@ run([\"./{BUILD_DIR_NAME}/Source/Main/{name}\"])"
     ]
 }
 
-pub fn get_source_files<'a>() -> Vec<File<'a>> {
+pub fn get_source_files<'a>() -> Vec<File> {
     vec![File::new(
-        "CMakeLists.txt",
+        "CMakeLists.txt".to_string(),
         r"cmake_minimum_required(VERSION 3.20)
 
 add_subdirectory(Main)"
@@ -60,9 +58,9 @@ add_subdirectory(Main)"
 
 pub fn get_main_mod_files<'a>(
     name: &str,
-) -> Vec<File<'a>> {
+) -> Vec<File> {
     vec![File::new(
-        "CMakeLists.txt",
+        "CMakeLists.txt".to_string(),
         format!(
             "cmake_minimum_required(VERSION 3.20)
 project({name})
@@ -79,9 +77,9 @@ add_executable(${{PROJECT_NAME}}
 }
 
 pub fn get_main_mod_private_files<'a>()
--> Vec<File<'a>> {
+-> Vec<File> {
     vec![File::new(
-            "main.cpp",
+            "main.cpp".to_string(),
             "#include <iostream>
 
 int main()
