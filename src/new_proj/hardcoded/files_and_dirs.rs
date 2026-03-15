@@ -30,12 +30,23 @@ pub(crate) fn create_source_directory_and_files(
 }
 
 #[must_use]
-pub(crate) fn create_main_directory_and_files(
+pub(crate) fn create_main_mod_directory_and_files(
     name: &str,
 ) -> String {
     create_directory_and_files(
         name,
         "Main",
-        file_lists::get_main_files(name),
+        file_lists::get_main_mod_files(name),
+    )
+}
+
+#[must_use]
+pub(crate) fn create_main_mod_private_directory_and_files(
+    name: &str,
+) -> String {
+    create_directory_and_files(
+        name,
+        "Private",
+        file_lists::get_main_mod_private_files(),
     )
 }

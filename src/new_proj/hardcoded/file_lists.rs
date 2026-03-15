@@ -27,6 +27,12 @@ PointerAlignment: Left
 ColumnLimit: 70"
                 .to_string(),
         ),
+        File::new(
+            ".gitignore",
+            r".cache
+build"
+                .to_string(),
+        ),
     ]
 }
 
@@ -40,13 +46,13 @@ add_subdirectory(Main)"
     )]
 }
 
-pub fn get_main_files<'a>(
+pub fn get_main_mod_files<'a>(
     name: &str,
 ) -> Vec<File<'a>> {
-    vec![
-        File::new(
-            "CMakeLists.txt",
-             format!("cmake_minimum_required(VERSION 3.20)
+    vec![File::new(
+        "CMakeLists.txt",
+        format!(
+            "cmake_minimum_required(VERSION 3.20)
 project({name})
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -55,9 +61,14 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_executable(${{PROJECT_NAME}}
     Private/main.cpp
-)")
+)"
         ),
-        File::new(
+    )]
+}
+
+pub fn get_main_mod_private_files<'a>()
+-> Vec<File<'a>> {
+    vec![File::new(
             "main.cpp",
             "#include <iostream>
 
@@ -66,6 +77,5 @@ int main()
     std::operator<<(std::cout, \"Hello World!\\n\");
 }"
                 .to_string(),
-        ),
-    ]
+        ),]
 }
