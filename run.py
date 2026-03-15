@@ -8,6 +8,7 @@ def soft_rm(name: str):
 
 
 project_name: str = "Project"
+mod_name: str = "Mod"
 
 run(["cargo", "build", "--release"])
 
@@ -16,3 +17,5 @@ run([f"./target/release/setup", "new", f"{project_name}"])
 
 soft_rm("Source")
 run(["ls", f"{project_name}"])
+
+
