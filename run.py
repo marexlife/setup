@@ -1,16 +1,13 @@
 from subprocess import run
-from os import mkdir
 from shutil import rmtree
 
 tests_dir: str = "tests"
+project_name: str = "proj"
 
 run(["cargo", "build", "--release"])
 
-try: 
-    rmtree(tests_dir)
-except:
-    pass
-mkdir(tests_dir)
-run(["cp", "target/release/setup", tests_dir])
-run([f"./{tests_dir}/setup", "new", "proj"])
-run(["ls", f"{tests_dir}"])
+try: rmtree(project_name)
+except: pass
+run([f"./target/release/setup", "new", f"{project_name}"])
+
+run(["ls", f"{project_name}"])
