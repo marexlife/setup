@@ -1,12 +1,12 @@
-pub struct File {
-    name: String,
-    contents: &'static str,
+pub struct File<'a> {
+    name: &'a str,
+    contents: String,
 }
 
-impl File {
+impl<'a> File<'a> {
     pub fn new(
-        name: String,
-        contents: &'static str,
+        name: &'a str,
+        contents: String,
     ) -> Self {
         Self { name, contents }
     }
@@ -15,7 +15,7 @@ impl File {
         &self.name
     }
 
-    pub fn get_contents(&self) -> &'static str {
+    pub fn get_contents(&self) -> &str {
         &self.contents
     }
 }
