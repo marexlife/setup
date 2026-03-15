@@ -6,6 +6,7 @@ mod file;
 mod new_mod;
 mod new_proj;
 mod user_request;
+mod utils;
 
 fn main() {
     UserRequest::new().visit(
