@@ -13,6 +13,8 @@ pub fn create_files(
 }
 
 pub fn create_directory(name: &str) -> &str {
+    println!("CREATING: {name}");
+
     create_dir(name).unwrap_or_else(|e| {
         panic!("Attempt to create directory '{}' failed with error {}!", name, e);
     });
@@ -24,9 +26,11 @@ pub fn create_and_get_directory(
     parent: &str,
     sub: &str,
 ) -> String {
-    create_directory(sub);
+    let new = format!("{}/{}", parent, sub);
 
-    format!("{}/{}", parent, sub)
+    create_directory(&new);
+
+    new
 }
 
 #[must_use]

@@ -30,11 +30,9 @@ ColumnLimit: 70"
     ]
 }
 
-pub fn get_source_files(
-    name: &str,
-) -> Vec<File<'_>> {
+pub fn get_source_files<'a>() -> Vec<File<'a>> {
     vec![File::new(
-        name,
+        "CMakeLists.txt",
         r"cmake_minimum_required(VERSION 3.20)
 
 add_subdirectory(Main)"

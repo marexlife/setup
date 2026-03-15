@@ -25,7 +25,7 @@ pub(crate) fn create_source_directory_and_files(
     create_directory_and_files(
         name,
         "Source",
-        file_lists::get_source_files(name),
+        file_lists::get_source_files(),
     )
 }
 
