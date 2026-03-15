@@ -1,6 +1,7 @@
 use std::process::exit;
 
-const HELP_ADVICE: &str = "not valid, please use '--help'";
+const HELP_ADVICE: &str =
+    "not valid, please use '--help'";
 
 pub fn leave_with_help_screen() {
     print!(
@@ -29,10 +30,14 @@ pub struct UserRequest {
 
 impl UserRequest {
     pub fn new() -> Self {
+        println!("'--help' for the help screen");
+
         let mut instruction = None;
         let mut name = None;
 
-        for (i, arg) in std::env::args().enumerate() {
+        for (i, arg) in
+            std::env::args().enumerate()
+        {
             if i == 1 {
                 instruction = Some(arg)
             } else if i == 2 {
@@ -53,15 +58,27 @@ impl UserRequest {
         }
     }
 
-    pub fn visit<NewProj, NewMod>(&self, new_proj: NewProj, new_mod: NewMod)
-    where
+    pub fn visit<NewProj, NewMod>(
+        &self,
+        new_proj: NewProj,
+        new_mod: NewMod,
+    ) where
         NewProj: Fn(&str),
         NewMod: Fn(&str),
     {
-        match (self.instruction.as_str(), &self.name) {
-            ("--help", None) => leave_with_help_screen(),
-            ("--help", Some(_)) => self.leave_with_no_args_advice(),
-            ("run", Some(_)) => self.leave_with_no_args_advice(),
+        match (
+            self.instruction.as_str(),
+            &self.name,
+        ) {
+            ("--help", None) => {
+                leave_with_help_screen()
+            }
+            ("--help", Some(_)) => {
+                self.leave_with_no_args_advice()
+            }
+            ("run", Some(_)) => {
+                self.leave_with_no_args_advice()
+            }
             ("mod", Some(name)) => new_mod(name),
             ("new", Some(name)) => new_proj(name),
             _ => leave_with_advice(),
@@ -69,7 +86,8 @@ impl UserRequest {
     }
 
     fn leave_with_no_args_advice(&self) {
-        let command_name = self.instruction.as_str();
+        let command_name =
+            self.instruction.as_str();
 
         panic!(
             "after '{}' there should be nothing, try just 'setup {}'",
