@@ -8,7 +8,7 @@ pub fn new_mod(name: &str) {
     let project_name = get_parent_directory();
 
     let mod_path = create_mod_root_and_files(
-        format!("Source/{}", project_name),
+        "Source".to_string(),
         name,
         name,
     );
