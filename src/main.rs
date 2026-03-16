@@ -1,5 +1,3 @@
-use std::process::exit;
-
 use crate::{
     new_mod::new_mod, new_proj::new_proj,
     run_proj::run_proj,
@@ -20,8 +18,8 @@ fn main() {
         |name| {
             new_mod(name);
         },
-        |name| {
-            run_proj(name);
+        || {
+            run_proj();
         },
     );
 }
