@@ -27,9 +27,11 @@ pub fn create_mod_root_and_files(
 pub fn update_source_cmake_lists_txt(
     mod_name: String,
 ) {
+    const CMAKE_LISTS_TXT: &'static str =
+        "CMakeLists.txt";
     let mut b = PathBuf::new();
     b.push("Source");
-    b.push("CMakeLists.txt");
+    b.push(CMAKE_LISTS_TXT);
 
     let path = b.as_path();
 
@@ -37,7 +39,7 @@ pub fn update_source_cmake_lists_txt(
 add_subdirectory({mod_name})
 "))
         .unwrap_or_else(|e| {
-            panic!("failed to update 'CMakeLists.txt' with error {e}")
+            panic!("failed to update '{CMAKE_LISTS_TXT}' in path '{path:?}' with error {e}")
         });
 }
 
