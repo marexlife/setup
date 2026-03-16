@@ -1,5 +1,7 @@
 use std::process::exit;
 
+use crate::utils::get_parent_directory;
+
 const HELP_ADVICE: &str =
     "not valid, please use '--help'";
 
@@ -58,13 +60,15 @@ impl UserRequest {
         }
     }
 
-    pub fn visit<NewProj, NewMod>(
+    pub fn visit<NewProj, NewMod, RunProj>(
         &self,
         new_proj: NewProj,
         new_mod: NewMod,
+        run_proj: RunProj,
     ) where
         NewProj: Fn(&str),
         NewMod: Fn(&str),
+        RunProj: Fn(&str),
     {
         match (
             self.instruction.as_str(),
@@ -75,6 +79,11 @@ impl UserRequest {
             }
             ("--help", Some(_)) => {
                 self.leave_with_no_args_advice()
+            }
+            ("run", None) => {
+                let s = get_parent_directory();
+
+                run_proj(&s)
             }
             ("run", Some(_)) => {
                 self.leave_with_no_args_advice()
