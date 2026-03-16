@@ -32,12 +32,16 @@ pub fn update_source_cmake_lists_txt(
     let mut b = PathBuf::new();
     b.push("Source");
     b.push(CMAKE_LISTS_TXT);
-
     let path = b.as_path();
 
-    std::fs::write(path, format!("
-add_subdirectory({mod_name})
-"))
+    let v = std::fs::read(path).unwrap_or_else(|e| {
+        panic!("failed to read contents of '{CMAKE_LISTS_TXT}' in path {path:?} with error {e}")
+    });
+
+    std::fs::write(path, format!("{}
+add_subdirectory({mod_name})", String::from_utf8(v).unwrap_or_else(|e| {
+            panic!("'{CMAKE_LISTS_TXT}' in path doesn't contain valid utf8. error {e}")
+        })))
         .unwrap_or_else(|e| {
             panic!("failed to update '{CMAKE_LISTS_TXT}' in path '{path:?}' with error {e}")
         });
