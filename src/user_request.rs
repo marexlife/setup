@@ -72,14 +72,14 @@ impl UserRequest {
             self.instruction.as_str(),
             &self.name,
         ) {
+            ("run", None) => run_proj(),
+            ("run", Some(_)) => {
+                self.leave_with_no_args_advice()
+            }
             ("--help", None) => {
                 leave_with_help_screen()
             }
             ("--help", Some(_)) => {
-                self.leave_with_no_args_advice()
-            }
-            ("run", None) => run_proj(),
-            ("run", Some(_)) => {
                 self.leave_with_no_args_advice()
             }
             ("mod", Some(name)) => new_mod(name),
