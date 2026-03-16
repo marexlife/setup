@@ -40,7 +40,7 @@ pub fn update_source_cmake_lists_txt(
 
     std::fs::write(path, format!("{}
 add_subdirectory({mod_name})", String::from_utf8(v).unwrap_or_else(|e| {
-            panic!("'{CMAKE_LISTS_TXT}' in path doesn't contain valid utf8. error {e}")
+            panic!("'{CMAKE_LISTS_TXT}' in path doesn't contain valid utf8. The error is {e}")
         })))
         .unwrap_or_else(|e| {
             panic!("failed to update '{CMAKE_LISTS_TXT}' in path '{path:?}' with error {e}")
