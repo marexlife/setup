@@ -32,6 +32,7 @@ pub fn get_private_files<'a>(
         format!("{name}.cpp"),
         format!(
             "#include \"{name}/{name}.h\"
+
 namespace {project_name}
 {{
 namespace {name}

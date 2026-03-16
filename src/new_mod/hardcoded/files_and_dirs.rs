@@ -29,14 +29,13 @@ pub fn create_public_and_files(
     project_name: &str,
 ) -> String {
     let include_dir = create_directory(format!(
-        "{}/{}",
+        "{}/Public",
         parent,
-        name.clone()
     ));
 
     create_directory_and_files(
         &include_dir,
-        "Public",
+        &name,
         get_public_files(&name, project_name),
     )
 }
