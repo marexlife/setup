@@ -25,12 +25,11 @@ pub fn create_mod_root_and_files(
 }
 
 pub fn update_source_cmake_lists_txt(
-    parent: String,
     mod_name: String,
 ) {
     let mut b = PathBuf::new();
-    b.push(parent);
     b.push("Source");
+    b.push("CMakeLists.txt");
 
     let path = b.as_path();
 
