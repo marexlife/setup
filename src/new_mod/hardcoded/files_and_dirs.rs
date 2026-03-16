@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 use crate::{
     new_mod::hardcoded::file_lists::{
         get_mod_root_files, get_private_files,
@@ -20,6 +22,24 @@ pub fn create_mod_root_and_files(
         sub,
         get_mod_root_files(name),
     )
+}
+
+pub fn update_source_cmake_lists_txt(
+    parent: String,
+    mod_name: String,
+) {
+    let mut b = PathBuf::new();
+    b.push(parent);
+    b.push("Source");
+
+    let path = b.as_path();
+
+    std::fs::write(path, format!("
+add_subdirectory({mod_name})
+"))
+        .unwrap_or_else(|e| {
+            panic!("failed to update 'CMakeLists.txt' with error {e}")
+        });
 }
 
 #[must_use]

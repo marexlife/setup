@@ -24,4 +24,9 @@ pub fn new_mod(name: &str) {
         name,
         &project_name,
     );
+
+    update_source_cmake_lists_txt(
+        get_parent_directory(),
+        name.to_string(),
+    );
 }
