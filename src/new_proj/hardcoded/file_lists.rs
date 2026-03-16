@@ -1,6 +1,6 @@
 use crate::file::File;
 
-const BUILD_DIR_NAME: &str = "Build";
+const BUILD_DIR_NAME: &str = "build";
 
 pub fn get_root_files(name: &str) -> Vec<File> {
     vec![
