@@ -58,16 +58,12 @@ impl UserRequest {
         }
     }
 
-    pub fn visit<NewProj, NewMod, RunProj>(
+    pub fn chose(
         &self,
-        new_proj: NewProj,
-        new_mod: NewMod,
-        run_proj: RunProj,
-    ) where
-        NewProj: Fn(&str),
-        NewMod: Fn(&str),
-        RunProj: Fn(),
-    {
+        new_proj: fn(&str),
+        new_mod: fn(&str),
+        run_proj: fn(),
+    ) {
         match (
             self.instruction.as_str(),
             &self.name,

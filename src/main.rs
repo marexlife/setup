@@ -11,15 +11,6 @@ mod user_request;
 mod utils;
 
 fn main() {
-    UserRequest::new().visit(
-        |name| {
-            new_proj(name);
-        },
-        |name| {
-            new_mod(name);
-        },
-        || {
-            run_proj();
-        },
-    );
+    UserRequest::new()
+        .chose(new_proj, new_mod, run_proj);
 }
