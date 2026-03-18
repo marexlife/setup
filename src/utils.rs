@@ -3,7 +3,6 @@ use std::{
     io::Write,
 };
 
-use crate::file::FileData;
 
 pub fn get_parent_directory() -> String {
     let dir = std::env::current_dir().unwrap_or_else(|e| {
