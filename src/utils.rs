@@ -3,6 +3,8 @@ use std::{
     io::Write,
 };
 
+use crate::file::FileData;
+
 pub fn get_parent_directory() -> String {
     let dir = std::env::current_dir().unwrap_or_else(|e| {
         panic!("couldn't get current dir with error {e}")
@@ -23,7 +25,7 @@ pub fn get_parent_directory() -> String {
 
 pub fn create_files(
     path: &str,
-    files: Vec<crate::file::File>,
+    files: Vec<crate::file::FileData>,
 ) {
     eprintln!("path: {}", path);
 
@@ -62,7 +64,7 @@ pub fn create_and_get_directory(
 pub fn create_directory_and_files(
     parent: &str,
     sub: &str,
-    files: Vec<crate::file::File>,
+    files: Vec<crate::file::FileData>,
 ) -> String {
     let path =
         create_and_get_directory(parent, sub);
@@ -71,3 +73,5 @@ pub fn create_directory_and_files(
 
     path
 }
+
+

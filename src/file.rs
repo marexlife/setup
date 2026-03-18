@@ -1,9 +1,9 @@
-pub struct File {
+pub struct FileData {
     name: String,
     contents: String,
 }
 
-impl File {
+impl FileData {
     pub fn new(
         name: String,
         contents: String,

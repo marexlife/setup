@@ -1,9 +1,9 @@
-use crate::file::File;
+use crate::file::FileData;
 
 pub fn get_mod_root_files<'a>(
     name: &str,
-) -> Vec<File> {
-    vec![File::new(
+) -> Vec<FileData> {
+    vec![FileData::new(
         "CMakeLists.txt".to_string(),
         format!(
             "cmake_minimum_required(VERSION 3.20)
@@ -27,8 +27,8 @@ target_include_directories(${{PROJECT_NAME}} PUBLIC
 pub fn get_private_files<'a>(
     name: &'a str,
     project_name: &'a str,
-) -> Vec<File> {
-    vec![File::new(
+) -> Vec<FileData> {
+    vec![FileData::new(
         format!("{name}.cpp"),
         format!(
             "#include \"{name}/{name}.h\"
@@ -46,8 +46,8 @@ namespace {name}
 pub fn get_public_files<'a>(
     name: &'a str,
     project_name: &'a str,
-) -> Vec<File> {
-    vec![File::new(
+) -> Vec<FileData> {
+    vec![FileData::new(
         format!("{name}.h"),
         format!(
             "#pragma once

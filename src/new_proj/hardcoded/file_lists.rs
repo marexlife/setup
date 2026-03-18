@@ -1,10 +1,12 @@
-use crate::file::File;
+use crate::file::FileData;
 
 const BUILD_DIR_NAME: &str = "build";
 
-pub fn get_root_files(name: &str) -> Vec<File> {
+pub fn get_root_files(
+    name: &str,
+) -> Vec<FileData> {
     vec![
-        File::new(
+        FileData::new(
             "CMakeLists.txt".to_string(),
             format!(
                 r"cmake_minimum_required(VERSION 3.20)
@@ -14,12 +16,12 @@ add_subdirectory(Source)
 "
             ),
         ),
-        File::new(
+        FileData::new(
             ".clang-tidy".to_string(),
             "Checks: 'cppcoreguidelines-*'"
                 .to_string(),
         ),
-        File::new(
+        FileData::new(
             ".clang-format".to_string(),
             r"---
 BasedOnStyle: Microsoft
@@ -27,13 +29,13 @@ PointerAlignment: Left
 ColumnLimit: 70"
                 .to_string(),
         ),
-        File::new(
+        FileData::new(
             ".gitignore".to_string(),
             r".cache
 build"
                 .to_string(),
         ),
-        File::new(
+        FileData::new(
             "run.py".to_string(),
             format!(
                 "from subprocess import run
@@ -46,8 +48,8 @@ run([\"./{BUILD_DIR_NAME}/Source/Main/{name}\"])"
     ]
 }
 
-pub fn get_source_files<'a>() -> Vec<File> {
-    vec![File::new(
+pub fn get_source_files<'a>() -> Vec<FileData> {
+    vec![FileData::new(
         "CMakeLists.txt".to_string(),
         r"cmake_minimum_required(VERSION 3.20)
 
@@ -58,8 +60,8 @@ add_subdirectory(Main)"
 
 pub fn get_main_mod_files<'a>(
     name: &str,
-) -> Vec<File> {
-    vec![File::new(
+) -> Vec<FileData> {
+    vec![FileData::new(
         "CMakeLists.txt".to_string(),
         format!(
             "cmake_minimum_required(VERSION 3.20)
@@ -77,8 +79,8 @@ add_executable(${{PROJECT_NAME}}
 }
 
 pub fn get_main_mod_private_files<'a>()
--> Vec<File> {
-    vec![File::new(
+-> Vec<FileData> {
+    vec![FileData::new(
             "main.cpp".to_string(),
             "#include <iostream>
 

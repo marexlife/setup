@@ -7,6 +7,7 @@ mod file;
 mod new_mod;
 mod new_proj;
 mod run_proj;
+mod shared;
 mod user_request;
 mod utils;
 
