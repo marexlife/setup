@@ -26,7 +26,7 @@ pub fn create_public_and_files(
 
 #[must_use]
 pub fn create_private_and_files(
-    parent: String,
+    parent: &str,
     files: Vec<FileData>,
 ) -> String {
     create_directory_and_files(

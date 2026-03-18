@@ -8,24 +8,20 @@ pub fn new_mod(name: &str) {
     let project_name = get_parent_directory();
 
     let mod_path = create_mod_root_and_files(
-        "Source".to_string(),
-        name,
-        name,
+        "Source", name, name,
     );
 
     let _ = create_public_and_files(
-        mod_path.clone(),
-        name.to_string(),
+        &mod_path,
+        name,
         &project_name,
     );
 
     let _ = create_private_and_files(
-        mod_path,
+        &mod_path,
         name,
         &project_name,
     );
 
-    update_source_cmake_lists_txt(
-        name.to_string(),
-    );
+    update_source_cmake_lists_txt(name);
 }

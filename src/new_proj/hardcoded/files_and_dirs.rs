@@ -1,7 +1,11 @@
 use super::file_lists;
-use crate::utils::{
-    create_directory, create_directory_and_files,
-    create_files,
+use crate::{
+    new_proj::hardcoded::file_lists::get_main_mod_private_files,
+    shared,
+    utils::{
+        create_directory,
+        create_directory_and_files, create_files,
+    },
 };
 
 #[must_use]
@@ -32,7 +36,7 @@ pub(crate) fn create_source_directory_and_files(
 }
 
 #[must_use]
-pub(crate) fn create_main_mod_directory_and_files(
+pub(crate) fn mod_directory_and_files(
     project_name: &str,
     parent: &str,
 ) -> String {
@@ -48,14 +52,11 @@ pub(crate) fn create_main_mod_directory_and_files(
 }
 
 #[must_use]
-pub(crate) fn create_main_mod_private_directory_and_files(
+pub(crate) fn create_private_directory_and_files(
     parent: &str,
 ) -> String {
-    let name = "Private";
-
-    create_directory_and_files(
+    shared::create_private_and_files(
         parent,
-        name,
-        file_lists::get_main_mod_private_files(),
+        get_main_mod_private_files(),
     )
 }

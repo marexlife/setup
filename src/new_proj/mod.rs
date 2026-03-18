@@ -11,11 +11,12 @@ pub fn new_proj(name: &str) {
             &project_path,
         );
 
-    let main_mod_path =
-        create_main_mod_directory_and_files(
-            name,
-            &source_path,
-        );
+    let main_mod_path = mod_directory_and_files(
+        name,
+        &source_path,
+    );
 
-    let _ = create_main_mod_private_directory_and_files(&main_mod_path);
+    let _ = create_private_directory_and_files(
+        &main_mod_path,
+    );
 }

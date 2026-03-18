@@ -6,15 +6,12 @@ use crate::{
         get_public_files,
     },
     shared,
-    utils::{
-        create_directory,
-        create_directory_and_files,
-    },
+    utils::create_directory_and_files,
 };
 
 #[must_use]
 pub fn create_mod_root_and_files(
-    parent: String,
+    parent: &str,
     sub: &str,
     name: &str,
 ) -> String {
@@ -26,7 +23,7 @@ pub fn create_mod_root_and_files(
 }
 
 pub fn update_source_cmake_lists_txt(
-    mod_name: String,
+    mod_name: &str,
 ) {
     const CMAKE_LISTS_TXT: &'static str =
         "CMakeLists.txt";
@@ -50,8 +47,8 @@ add_subdirectory({mod_name})", String::from_utf8(v).unwrap_or_else(|e| {
 
 #[must_use]
 pub fn create_public_and_files(
-    parent: String,
-    name: String,
+    parent: &str,
+    name: &str,
     project_name: &str,
 ) -> String {
     shared::create_public_and_files(
@@ -64,7 +61,7 @@ pub fn create_public_and_files(
 
 #[must_use]
 pub fn create_private_and_files(
-    parent: String,
+    parent: &str,
     name: &str,
     project_name: &str,
 ) -> String {
