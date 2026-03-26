@@ -20,7 +20,9 @@ Use setup 'run' to run your project.
 }
 
 pub fn leave_with_advice() {
-    panic!("{}", HELP_ADVICE)
+    println!("{}", HELP_ADVICE);
+
+    exit(0);
 }
 
 pub struct UserRequest {
