@@ -40,7 +40,7 @@ pub fn create_files(
     }
 }
 
-pub fn create_directory(name: String) -> String {
+pub fn create_and_get_directory(name: String) -> String {
     create_dir(name.clone()).unwrap_or_else(|e| {
         panic!("Attempt to create directory '{}' failed with error {}!", name, e);
     });
@@ -48,29 +48,43 @@ pub fn create_directory(name: String) -> String {
     name
 }
 
-pub fn create_and_get_directory(
+pub fn create_and_get_sub_directory(
     parent: &str,
     sub: &str,
 ) -> String {
     let new = format!("{}/{}", parent, sub);
 
-    create_directory(new.clone());
+    create_and_get_directory(new.clone());
 
     new
 }
 
 #[must_use]
-pub fn create_directory_and_files(
+pub fn create_sub_directory_and_files(
     parent: &str,
     sub: &str,
     files: Vec<crate::file::FileData>,
 ) -> String {
     let path =
-        create_and_get_directory(parent, sub);
+        create_and_get_sub_directory(parent, sub);
 
     create_files(&path, files);
 
     path
 }
+
+#[must_use]
+pub fn create_directory_and_files(
+    dir: String,
+    files: Vec<crate::file::FileData>,
+) -> String {
+    let path =
+        create_and_get_directory(dir.to_string());
+
+    create_files(&path, files);
+
+    path
+}
+
 
 

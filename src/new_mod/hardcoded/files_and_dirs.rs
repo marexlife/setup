@@ -6,7 +6,7 @@ use crate::{
         get_public_files,
     },
     shared,
-    utils::create_directory_and_files,
+    utils::create_sub_directory_and_files,
 };
 
 #[must_use]
@@ -15,7 +15,7 @@ pub fn create_mod_root_and_files(
     sub: &str,
     name: &str,
 ) -> String {
-    create_directory_and_files(
+    create_sub_directory_and_files(
         &parent,
         sub,
         get_mod_root_files(name),

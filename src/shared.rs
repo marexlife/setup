@@ -1,8 +1,9 @@
 use crate::{
     file::FileData,
     utils::{
-        create_directory,
+        create_and_get_directory,
         create_directory_and_files,
+        create_sub_directory_and_files,
     },
 };
 
@@ -13,13 +14,16 @@ pub fn create_public_and_files(
     project_name: &str,
     files: Vec<FileData>,
 ) -> String {
-    let include_dir = create_directory(format!(
-        "{parent}/Public/{project_name}/{name}"
+    let dir = create_and_get_directory(format!(
+        "{parent}/Public"
+    ));
+
+    let dir = create_and_get_directory(format!(
+        "{dir}/{project_name}"
     ));
 
     create_directory_and_files(
-        &include_dir,
-        &name,
+        format!("{dir}/{name}"),
         files,
     )
 }
@@ -29,7 +33,7 @@ pub fn create_private_and_files(
     parent: &str,
     files: Vec<FileData>,
 ) -> String {
-    create_directory_and_files(
+    create_sub_directory_and_files(
         &parent, "Private", files,
     )
 }
