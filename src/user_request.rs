@@ -80,7 +80,6 @@ impl UserRequest {
             }
             ("mod", Some(name)) => new_mod(name),
             ("new", Some(name)) => new_proj(name),
-            (name, None) => new_proj(name),
             _ => leave_with_advice(),
         }
     }
