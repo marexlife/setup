@@ -60,11 +60,12 @@ class {name}
 {{
   public:
     explicit {name}() = default;
-    {name}& operator=(const {name}&) = default;
-    {name}& operator=({name}&&) = default;
-    {name}(const {name}&) = default;
-    {name}({name}&&) = default;
     virtual ~{name}() = default;
+
+    {name}& operator=(const {name}&) = delete;
+    {name}& operator=({name}&&) = delete;
+    {name}(const {name}&) = delete;
+    {name}({name}&&) = delete;
 }};
 }} // namespace {name}
 }} // namespace {project_name}"
