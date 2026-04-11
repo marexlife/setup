@@ -11,10 +11,10 @@ use crate::{
 
 #[must_use]
 pub fn create_mod_root_and_files(
-    project_name: &str,
     parent: &str,
     sub: &str,
     name: &str,
+    project_name: &str,
 ) -> String {
     create_sub_directory_and_files(
         &parent,
