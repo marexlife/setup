@@ -59,8 +59,7 @@ pub fn get_public_files(
 ) -> Vec<FileData> {
     let header_guard =
         to_screaming_snake_case(format!(
-            "{}_{}_{}_H_",
-            project_name, name, name
+            "{project_name}_{name}_{name}_H_",
         ));
 
     vec![FileData::new(
