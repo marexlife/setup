@@ -1,4 +1,7 @@
-use crate::file::FileData;
+use crate::{
+    file::FileData,
+    utils::to_screaming_snake_case,
+};
 
 pub fn get_mod_root_files<'a>(
     project_name: &'a str,
@@ -54,10 +57,17 @@ pub fn get_public_files<'a>(
     name: &'a str,
     project_name: &'a str,
 ) -> Vec<FileData> {
+    let header_guard =
+        to_screaming_snake_case(format!(
+            "{}_{}_{}_H_",
+            project_name, name, name
+        ));
+
     vec![FileData::new(
         format!("{name}.h"),
         format!(
-            "#pragma once
+            "#ifndef {header_guard}
+#define {header_guard}
         
 namespace {project_name}
 {{
@@ -74,7 +84,8 @@ class {name} final
     {name}({name}&&) = delete;
 }};
 }} // namespace {name}
-}} // namespace {project_name}"
+}} // namespace {project_name}
+#endif // {header_guard}",
         ),
     )]
 }

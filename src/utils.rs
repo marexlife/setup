@@ -4,6 +4,90 @@ use std::{
 };
 
 
+pub fn to_screaming_snake_case(text: String) -> String {
+    let mut buf = String::new();
+    let mut pervious: Option<char> = None;
+
+    
+    for e in text.chars() {
+        if e.is_uppercase() {
+            if let Some(v) = pervious {
+                if v.is_lowercase() {
+                    buf.push('_');
+                }
+            }
+            
+            buf.push(e);
+        } else {
+            buf.push(to_upper(e));
+        }
+
+        pervious = Some(e);
+    }
+
+    fn to_upper(c: char) -> char {
+        match c {
+            'a' => 'A',
+            'b' => 'B',
+            'c' => 'C',
+            'd' => 'D',
+            'e' => 'E',
+            'f' => 'F',
+            'g' => 'G',
+            'h' => 'H',
+            'i' => 'I',
+            'j' => 'J',
+            'k' => 'K',
+            'l' => 'L',
+            'm' => 'M',
+            'n' => 'N',
+            'o' => 'O',
+            'p' => 'P',
+            'q' => 'Q',
+            'r' => 'R',
+            's' => 'S',
+            't' => 'T',
+            'u' => 'U',
+            'v' => 'V',
+            'w' => 'W',
+            'x' => 'X',
+            'y' => 'Y',
+            'z' => 'Z',
+            'A' => 'A',
+            'B' => 'B',
+            'C' => 'C',
+            'D' => 'D',
+            'E' => 'E',
+            'F' => 'F',
+            'G' => 'G',
+            'H' => 'H',
+            'I' => 'I',
+            'J' => 'J',
+            'K' => 'K',
+            'L' => 'L',
+            'M' => 'M',
+            'N' => 'N',
+            'O' => 'O',
+            'P' => 'P',
+            'Q' => 'Q',
+            'R' => 'R',
+            'S' => 'S',
+            'T' => 'T',
+            'U' => 'U',
+            'V' => 'V',
+            'W' => 'W',
+            'X' => 'X',
+            'Y' => 'Y',
+            'Z' => 'Z',
+            '_' => '_',
+            '-' => '_',
+            _ => '_',
+        }
+    }
+
+    buf
+}
+
 pub fn get_parent_directory() -> String {
     let dir = std::env::current_dir().unwrap_or_else(|e| {
         panic!("couldn't get current dir with error {e}")
