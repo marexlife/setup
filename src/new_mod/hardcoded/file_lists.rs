@@ -34,9 +34,9 @@ target_precompile_headers(${{PROJECT_NAME}} PUBLIC
     )]
 }
 
-pub fn get_private_files<'a>(
-    name: &'a str,
-    project_name: &'a str,
+pub fn get_private_files(
+    name: &str,
+    project_name: &str,
 ) -> Vec<FileData> {
     vec![FileData::new(
         format!("{name}.cpp"),
@@ -53,9 +53,9 @@ namespace {name}
     )]
 }
 
-pub fn get_public_files<'a>(
-    name: &'a str,
-    project_name: &'a str,
+pub fn get_public_files(
+    name: &str,
+    project_name: &str,
 ) -> Vec<FileData> {
     let header_guard =
         to_screaming_snake_case(format!(
