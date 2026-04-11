@@ -31,8 +31,8 @@ ColumnLimit: 70"
         ),
         FileData::new(
             ".gitignore".to_string(),
-            r".cache
-build"
+            r"/build
+/.cache"
                 .to_string(),
         ),
         FileData::new(
@@ -81,13 +81,13 @@ add_executable(${{PROJECT_NAME}}
 pub fn get_main_mod_private_files<'a>()
 -> Vec<FileData> {
     vec![FileData::new(
-            "main.cpp".to_string(),
-            "#include <iostream>
+        "main.cpp".to_string(),
+        "#include <iostream>
 
 int main()
 {
-    std::operator<<(std::cout, \"Hello World!\\n\");
+    std::cout << \"Hello World!\\n\";
 }"
-                .to_string(),
-        ),]
+        .to_string(),
+    )]
 }
