@@ -3,9 +3,9 @@ use crate::{
     utils::to_screaming_snake_case,
 };
 
-pub fn get_mod_root_files<'a>(
-    project_name: &'a str,
+pub fn get_mod_root_files(
     name: &str,
+    project_name: &str,
 ) -> Vec<FileData> {
     vec![FileData::new(
         "CMakeLists.txt".to_string(),
