@@ -32,8 +32,6 @@ pub struct UserRequest {
 
 impl UserRequest {
     pub fn new() -> Self {
-        println!("'--help' for the help screen");
-
         let mut instruction = None;
         let mut name = None;
 
@@ -56,7 +54,11 @@ impl UserRequest {
                 instruction: i,
                 name: None,
             },
-            _ => panic!("no command provided"),
+            _ => {
+                eprintln!("no command provided");
+
+                exit(0)
+            }
         }
     }
 
