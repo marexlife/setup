@@ -1,6 +1,7 @@
 use crate::file::FileData;
 
 pub fn get_mod_root_files<'a>(
+    project_name: &'a str,
     name: &str,
 ) -> Vec<FileData> {
     vec![FileData::new(
@@ -8,6 +9,8 @@ pub fn get_mod_root_files<'a>(
         format!(
             "cmake_minimum_required(VERSION 3.20)
 project({name})
+
+set(CUSTOM_HEADER_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Public/{project_name}/{name})
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -19,6 +22,10 @@ add_library(${{PROJECT_NAME}}
 
 target_include_directories(${{PROJECT_NAME}} PUBLIC
     Public
+)
+
+target_precompile_headers(${{PROJECT_NAME}} PUBLIC
+    ${{CUSTOM_HEADER_PATH}}/{name}.h
 )"
         ),
     )]
@@ -56,12 +63,11 @@ namespace {project_name}
 {{
 namespace {name}
 {{
-class {name} 
+class {name} final
 {{
   public:
-    explicit {name}() = default;
-    virtual ~{name}() = default;
-
+    explicit {name}() = delete;
+    ~{name}() = delete;
     {name}& operator=(const {name}&) = delete;
     {name}& operator=({name}&&) = delete;
     {name}(const {name}&) = delete;
