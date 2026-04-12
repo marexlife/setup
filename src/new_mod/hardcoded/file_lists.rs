@@ -14,13 +14,14 @@ pub fn get_mod_root_files(
 project({name})
 
 set(CUSTOM_HEADER_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Public/{project_name}/{name})
+set(CUSTOM_SOURCE_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Private/Self)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
 
 add_library(${{PROJECT_NAME}}
-    Private/{name}.cpp
+    ${{CUSTOM_SOURCE_PATH}}/{name}.cpp
 )
 
 target_include_directories(${{PROJECT_NAME}} PRIVATE
