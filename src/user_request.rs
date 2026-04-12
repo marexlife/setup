@@ -1,18 +1,18 @@
 use std::process::exit;
 
-const HELP_ADVICE: &str =
-    "not valid, please use '--help'";
+const HELP_ADVICE: &str = "This command is ill-formed, please use '--help'.";
 
 pub fn leave_with_help_screen() {
     print!(
-        r"
-(NOTE: program needs to be in project root)
-definition: 'my_name' <- your desired name.
-
+        r"Help:
+Usage:
 Use setup '--help' to see this screen again.
-Use setup 'new' 'my_name' to create a new project.
-Use setup 'mod' 'my_name' to create a new module.
+Use setup 'new' 'MyNewProject' to create a new project.
+Use setup 'mod' 'MyNewModule' to create a new module.
 Use setup 'run' to run your project.
+
+Note: 
+This program needs to be in project root.
                 "
     );
 
