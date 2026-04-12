@@ -28,10 +28,6 @@ target_precompile_headers(${{PROJECT_NAME}} PUBLIC
     ${{CUSTOM_HEADER_PATH}}/{name}.h
 )
 
-target_include_directories(${{PROJECT_NAME}} PRIVATE
-    Private
-)
-
 target_include_directories(${{PROJECT_NAME}} PUBLIC
     Public
 )"
