@@ -43,12 +43,9 @@ pub fn get_private_files(
         format!(
             "#include \"{project_name}/{name}/{name}.h\"
 
-namespace {project_name}
+namespace {project_name}::{name}
 {{
-namespace {name}
-{{
-}} // namespace {name}
-}} // namespace {project_name}"
+}} // namespace {project_name}::{name}"
         ),
     )]
 }
@@ -68,9 +65,7 @@ pub fn get_public_files(
             "#ifndef {header_guard}
 #define {header_guard}
         
-namespace {project_name}
-{{
-namespace {name}
+namespace {project_name}::{name}
 {{
 class {name} final
 {{
@@ -82,8 +77,7 @@ class {name} final
     {name}(const {name}&) = delete;
     {name}({name}&&) = delete;
 }};
-}} // namespace {name}
-}} // namespace {project_name}
+}} // namespace {project_name}::{name}
 #endif // {header_guard}",
         ),
     )]
