@@ -67,7 +67,7 @@ pub fn get_main_mod_files<'a>(
             "cmake_minimum_required(VERSION 3.20)
 project({name})
 
-set(CUSTOM_SOURCE_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Private/Self)
+set(CUSTOM_SOURCE_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Private)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

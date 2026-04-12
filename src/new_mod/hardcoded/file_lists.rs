@@ -14,7 +14,7 @@ pub fn get_mod_root_files(
 project({name})
 
 set(CUSTOM_HEADER_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Public/{project_name}/{name})
-set(CUSTOM_SOURCE_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Private/Self)
+set(CUSTOM_SOURCE_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Private)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
