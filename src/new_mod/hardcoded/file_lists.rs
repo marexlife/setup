@@ -47,9 +47,9 @@ pub fn get_private_files(
         format!(
             "#include \"{project_name}/{name}/{name}.h\"
 
-namespace {project_name}::{name}
+namespace {project_name}::{name}::Private
 {{
-}} // namespace {project_name}::{name}"
+}} // namespace {project_name}::{name}::Private"
         ),
     )]
 }
