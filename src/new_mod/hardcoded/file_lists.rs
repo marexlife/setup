@@ -23,6 +23,10 @@ add_library(${{PROJECT_NAME}}
     Private/{name}.cpp
 )
 
+target_include_directories(${{PROJECT_NAME}} PRIVATE
+    Private
+)
+
 target_include_directories(${{PROJECT_NAME}} PUBLIC
     Public
 )

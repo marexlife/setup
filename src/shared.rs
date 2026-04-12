@@ -33,7 +33,11 @@ pub fn create_private_and_files(
     parent: &str,
     files: Vec<FileData>,
 ) -> String {
+    let dir = create_and_get_directory(format!(
+        "{parent}/Private"
+    ));
+
     create_sub_directory_and_files(
-        &parent, "Private", files,
+        &dir, "Self", files,
     )
 }
