@@ -67,12 +67,14 @@ pub fn get_main_mod_files<'a>(
             "cmake_minimum_required(VERSION 3.20)
 project({name})
 
+set(CUSTOM_SOURCE_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Private/Self)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(${{PROJECT_NAME}}
-    Private/main.cpp
+    ${{CUSTOM_SOURCE_PATH}}/main.cpp
 )"
         ),
     )]
