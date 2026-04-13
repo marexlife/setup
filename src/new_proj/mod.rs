@@ -1,6 +1,6 @@
-use hardcoded::*;
+use files_and_dirs::*;
 
-mod hardcoded;
+mod files_and_dirs;
 
 pub fn new_proj(name: &str) {
     let project_path =
