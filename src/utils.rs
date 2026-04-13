@@ -108,7 +108,7 @@ pub fn get_parent_directory() -> String {
 
 pub fn create_files(
     path: &str,
-    files: Vec<crate::file::FileData>,
+    files: Vec<crate::file_data::FileData>,
 ) {
     eprintln!("path: {}", path);
 
@@ -147,7 +147,7 @@ pub fn create_and_get_sub_directory(
 pub fn create_sub_directory_and_files(
     parent: &str,
     sub: &str,
-    files: Vec<crate::file::FileData>,
+    files: Vec<crate::file_data::FileData>,
 ) -> String {
     let path =
         create_and_get_sub_directory(parent, sub);
@@ -160,7 +160,7 @@ pub fn create_sub_directory_and_files(
 #[must_use]
 pub fn create_directory_and_files(
     dir: String,
-    files: Vec<crate::file::FileData>,
+    files: Vec<crate::file_data::FileData>,
 ) -> String {
     let path =
         create_and_get_directory(dir.to_string());

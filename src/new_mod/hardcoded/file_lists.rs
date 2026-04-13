@@ -1,5 +1,5 @@
 use crate::{
-    file::FileData,
+    file_data::FileData,
     utils::to_screaming_snake_case,
 };
 

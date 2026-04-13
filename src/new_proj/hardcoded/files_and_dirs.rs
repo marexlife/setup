@@ -1,6 +1,5 @@
-use super::file_lists;
+use crate::file_data::FileData;
 use crate::{
-    new_proj::hardcoded::file_lists::get_main_mod_private_files,
     shared,
     utils::{
         create_and_get_directory, create_files,
@@ -8,30 +7,95 @@ use crate::{
     },
 };
 
+const BUILD_DIR_NAME: &str = "build";
+const SOURCE_DIR_NAME: &str = "Source";
+const THIRD_PARTY_DIR_NAME: &str = "ThirdParty";
+const MAIN_MOD_DIR_NAME: &str = "Main";
+
 #[must_use]
 pub(crate) fn create_root_directory_and_files(
     name: &str,
 ) -> String {
-    let path = create_and_get_directory(name.to_string());
+    let path = create_and_get_directory(
+        name.to_string(),
+    );
 
     create_files(
         &name,
-        file_lists::get_root_files(name),
+            vec![
+        FileData::new(
+            "CMakeLists.txt".to_string(),
+            format!(
+                r"cmake_minimum_required(VERSION 3.20)
+project({name})
+
+add_subdirectory(Source)
+"
+            ),
+        ),
+        FileData::new(
+            ".clang-tidy".to_string(),
+            "Checks: 'cppcoreguidelines-*'"
+                .to_string(),
+        ),
+        FileData::new(
+            ".clang-format".to_string(),
+            r"---
+BasedOnStyle: Microsoft
+PointerAlignment: Left
+ColumnLimit: 70"
+                .to_string(),
+        ),
+        FileData::new(
+            ".gitignore".to_string(),
+            r"/build
+/.cache"
+                .to_string(),
+        ),
+        FileData::new(
+            "run.py".to_string(),
+            format!(
+                "from subprocess import run
+
+run([\"cmake\", \".\", \"-B\", \"{BUILD_DIR_NAME}\"])
+run([\"cmake\", \"--build\", \"{BUILD_DIR_NAME}\"])
+run([\"./{BUILD_DIR_NAME}/Source/Main/{name}\"])"
+            ),
+        ),
+    ],
     );
 
     path
 }
 
 #[must_use]
+pub(crate) fn create_third_party_directory_and_files(
+    parent: &str,
+) -> String {
+    create_sub_directory_and_files(
+        parent,
+        THIRD_PARTY_DIR_NAME,
+        vec![FileData::new(
+            THIRD_PARTY_DIR_NAME.to_string(),
+            "".to_string(),
+        )],
+    )
+}
+
+#[must_use]
 pub(crate) fn create_source_directory_and_files(
     parent: &str,
 ) -> String {
-    let name = "Source";
-
     create_sub_directory_and_files(
         parent,
-        name,
-        file_lists::get_source_files(),
+        SOURCE_DIR_NAME,
+        vec![FileData::new(
+        "CMakeLists.txt".to_string(),
+        r"cmake_minimum_required(VERSION 3.20)
+
+add_subdirectory(Main)"
+            .to_string(),
+    )],
     )
 }
 
@@ -40,14 +104,26 @@ pub(crate) fn mod_directory_and_files(
     project_name: &str,
     parent: &str,
 ) -> String {
-    let name = "Main";
-
     create_sub_directory_and_files(
         parent,
-        name,
-        file_lists::get_main_mod_files(
-            project_name,
+        MAIN_MOD_DIR_NAME,
+    vec![FileData::new(
+        "CMakeLists.txt".to_string(),
+        format!(
+            "cmake_minimum_required(VERSION 3.20)
+project({project_name})
+
+set(CUSTOM_SOURCE_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Private)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 20)
+
+add_executable(${{PROJECT_NAME}}
+    ${{CUSTOM_SOURCE_PATH}}/main.cpp
+)"
         ),
+    )],
     )
 }
 
@@ -57,6 +133,15 @@ pub(crate) fn create_private_directory_and_files(
 ) -> String {
     shared::create_private_and_files(
         parent,
-        get_main_mod_private_files(),
+        vec![FileData::new(
+            "main.cpp".to_string(),
+            "#include <iostream>
+
+int main()
+{
+    std::cout << \"Hello World!\\n\";
+}"
+            .to_string(),
+        )],
     )
 }
