@@ -65,7 +65,6 @@ pub fn get_public_files(
         format!(
             "#ifndef {header_guard}
 #define {header_guard}
-        
 namespace {project_name}::{name}
 {{
 class {name} final
