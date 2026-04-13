@@ -27,4 +27,12 @@ pub fn new_mod(name: &str) {
     );
 
     update_source_cmake_lists_txt(name);
+
+    println!(
+        "# Link To {name}:
+    
+target_link_libraries(${{PROJECT_NAME}} PUBLIC
+{name}
+)"
+    )
 }
