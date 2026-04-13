@@ -31,6 +31,7 @@ pub(crate) fn create_root_directory_and_files(
 project({name})
 
 add_subdirectory(Source)
+add_subdirectory(ThirdParty)
 "
             ),
         ),
