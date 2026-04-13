@@ -6,8 +6,11 @@ pub fn new_proj(name: &str) {
     let project_path =
         create_root_directory_and_files(name);
 
+    let _ =
+        create_third_party_directory_and_files(
+            &project_path,
+        );
 
-        
     let source_path =
         create_source_directory_and_files(
             &project_path,

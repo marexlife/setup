@@ -11,6 +11,7 @@ const BUILD_DIR_NAME: &str = "build";
 const SOURCE_DIR_NAME: &str = "Source";
 const THIRD_PARTY_DIR_NAME: &str = "ThirdParty";
 const MAIN_MOD_DIR_NAME: &str = "Main";
+const CMAKE_DIR_NAME: &str = "CMake";
 
 #[must_use]
 pub(crate) fn create_root_directory_and_files(
@@ -72,14 +73,58 @@ run([\"./{BUILD_DIR_NAME}/Source/Main/{name}\"])"
 pub(crate) fn create_third_party_directory_and_files(
     parent: &str,
 ) -> String {
-    create_sub_directory_and_files(
+    let dir = create_sub_directory_and_files(
         parent,
         THIRD_PARTY_DIR_NAME,
         vec![FileData::new(
-            THIRD_PARTY_DIR_NAME.to_string(),
-            "".to_string(),
+            "CMakeLists.txt".to_string(),
+            format!("cmake_minimum_required(VERSION 3.20)
+project({THIRD_PARTY_DIR_NAME})
+
+include(${{CMAKE_CURRENT_SOURCE_DIR}}/CMake/Dependencies.cmake)
+
+Dependencies_Pull()
+"),
         )],
+    );
+
+    let dir = create_sub_directory_and_files(
+        &dir,
+        CMAKE_DIR_NAME,
+        vec![FileData::new(
+            "Dependencies.cmake".to_string(),
+            "cmake_minimum_required(VERSION 3.20)
+project(Dependencies)
+
+include(${CMAKE_SOURCE_DIR}/CMake/Logger.cmake)
+
+include(FetchContent)
+
+function(Dependencies_Pull)
+    Logger_LogInfo(\"pulling dependencies\")
+
+    FetchContent_Declare(CORE_TYPES
+       GIT_REPOSITORY https://github.com/marexlife/CoreTypes.git
+       GIT_TAG V0.1
     )
+
+    FetchContent_Declare(ABSL
+       GIT_REPOSITORY https://github.com/abseil/abseil-cpp.git
+       GIT_TAG lts_2026_01_07
+    )
+
+   FetchContent_Declare(SPDLOG
+       GIT_REPOSITORY https://github.com/gabime/spdlog.git
+       GIT_TAG v1.17.0
+    )
+
+    FetchContent_MakeAvailable(CORE_TYPES ABSL SPDLOG)
+endfunction()"
+                .to_string(),
+        )],
+    );
+
+    dir
 }
 
 #[must_use]
