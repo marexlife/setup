@@ -110,8 +110,6 @@ pub fn create_files(
     path: &str,
     files: Vec<crate::file_data::FileData>,
 ) {
-    eprintln!("path: {}", path);
-
     for file in files {
         File::create(format!("{}/{}", path, file.get_name()))
             .unwrap_or_else(|e| 

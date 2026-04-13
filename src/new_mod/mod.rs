@@ -30,7 +30,6 @@ pub fn new_mod(name: &str) {
 
     println!(
         "# Link To {name}:
-    
 target_link_libraries(${{PROJECT_NAME}} PUBLIC
     {name}
 )"
