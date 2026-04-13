@@ -187,6 +187,11 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(${{PROJECT_NAME}}
     ${{CUSTOM_SOURCE_PATH}}/main.cpp
+)
+    
+target_link_libraries(${{PROJECT_NAME}} PUBLIC
+    spdlog
+    CoreTypes
 )"
         ),
     )],
@@ -201,11 +206,11 @@ pub(crate) fn create_private_directory_and_files(
         parent,
         vec![FileData::new(
             "main.cpp".to_string(),
-            "#include <iostream>
+            "#include \"spdlog/spdlog.h\"
 
 int main()
 {
-    std::cout << \"Hello World!\\n\";
+    spdlog::info(\"Hello World!\");
 }"
             .to_string(),
         )],
