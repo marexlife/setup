@@ -128,6 +128,26 @@ endfunction()"
 }
 
 #[must_use]
+pub(crate) fn create_cmake_directory_and_files(
+    parent: &str,
+) -> String {
+    create_sub_directory_and_files(
+        parent,
+        CMAKE_DIR_NAME,
+        vec![FileData::new(
+            "Logger.cmake".to_string(),
+            "cmake_minimum_required(VERSION 3.20)
+
+function(Logger_LogInfo INFO_MESSAGE)
+    message(\"Info: ${INFO_MESSAGE}\")
+endfunction()
+"
+            .to_string(),
+        )],
+    )
+}
+
+#[must_use]
 pub(crate) fn create_source_directory_and_files(
     parent: &str,
 ) -> String {
