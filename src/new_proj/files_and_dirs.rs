@@ -30,6 +30,8 @@ pub(crate) fn create_root_directory_and_files(
                 r"cmake_minimum_required(VERSION 3.20)
 project({name})
 
+set(CMAKE_BUILD_TYPE Release)
+
 add_subdirectory(Source)
 add_subdirectory(ThirdParty)
 "
