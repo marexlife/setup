@@ -61,9 +61,9 @@ ColumnLimit: 70"
             format!(
                 "from subprocess import run
 
-run([\"cmake\", \".\", \"-B\", \"{BUILD_DIR_NAME}\"])
-run([\"cmake\", \"--build\", \"{BUILD_DIR_NAME}\"])
-run([\"./{BUILD_DIR_NAME}/Source/Main/{name}\"])"
+run([\"cmake\", \".\", \"-B\", \"{BUILD_DIR_NAME}\"], check=True)
+run([\"cmake\", \"--build\", \"{BUILD_DIR_NAME}\"], check=True)
+run([\"./{BUILD_DIR_NAME}/Source/Main/{name}\"], check=True)"
             ),
         ),
     ],
