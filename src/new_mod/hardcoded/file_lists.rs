@@ -66,6 +66,8 @@ pub fn get_public_files(
             "{project_name}_{name}_{name}_H_",
         ));
 
+    let class_name = format!("C{name}");
+
     vec![FileData::new(
         format!("{name}.h"),
         format!(
@@ -73,15 +75,15 @@ pub fn get_public_files(
 #define {header_guard}
 namespace {project_name}::{name}
 {{
-class {name} final
+class {class_name} final
 {{
   public:
-    explicit {name}() = delete;
-    ~{name}() = delete;
-    {name}& operator=(const {name}&) = delete;
-    {name}& operator=({name}&&) = delete;
-    {name}(const {name}&) = delete;
-    {name}({name}&&) = delete;
+    explicit {class_name}() = delete;
+    ~{class_name}() = delete;
+    {class_name}& operator=(const {class_name}&) = delete;
+    {class_name}& operator=({class_name}&&) = delete;
+    {class_name}(const {class_name}&) = delete;
+    {class_name}({class_name}&&) = delete;
 }};
 }} // namespace {project_name}::{name}
 #endif // {header_guard}",
