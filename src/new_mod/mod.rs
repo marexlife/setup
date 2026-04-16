@@ -37,8 +37,10 @@ pub fn new_mod(name: &str) {
     run_proj();
 
     println!(
-        "target_link_libraries(${{PROJECT_NAME}} PUBLIC
+        "
+target_link_libraries(${{PROJECT_NAME}} PUBLIC
     {name}
-)"
+)
+"
     );
 }
