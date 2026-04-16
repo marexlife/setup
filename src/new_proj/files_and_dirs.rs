@@ -39,7 +39,7 @@ add_subdirectory(ThirdParty)
         ),
         FileData::new(
             ".clang-tidy".to_string(),
-"Checks: \"cppcoreguidelines-*,readability-*,modernization-*,performance-*\"
+"Checks: \"cppcoreguidelines-*,readability-*,google-*,performance-*\"
 CheckOptions:
   - key: \"readability-identifier-naming.DefaultCase\"
     value: camelBack
