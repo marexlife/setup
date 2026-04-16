@@ -7,7 +7,7 @@ pub fn to_snake_case(text: &str) -> String {
     let mut previous: Option<char> = None;
     let mut buf = String::new();
 
-    for e in text.chars() {
+    for (i, e) in text.chars().enumerate() {
         let mut previous_was_underscore = false;
 
         if let Some(previous) = previous {
@@ -17,7 +17,10 @@ pub fn to_snake_case(text: &str) -> String {
         }
 
         if e.is_uppercase() && !previous_was_underscore {
-            buf.push('_');
+            if i != 0 {
+                buf.push('_');
+            }
+            
             buf.push(to_lower(e));
 
             previous = Some(e);
