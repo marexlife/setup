@@ -22,7 +22,7 @@ add_library(${{PROJECT_NAME}}
 )
 
 target_precompile_headers(${{PROJECT_NAME}} PUBLIC
-    ${{CUSTOM_HEADER_PATH}}/{name}Export.h
+    ${{CUSTOM_HEADER_PATH}}/{name}Export.pch
 )
 
 target_include_directories(${{PROJECT_NAME}} PUBLIC
@@ -30,7 +30,6 @@ target_include_directories(${{PROJECT_NAME}} PUBLIC
 )
     
 target_link_libraries(${{PROJECT_NAME}} PUBLIC
-    CoreTypes
     spdlog
     absl::base
 )"

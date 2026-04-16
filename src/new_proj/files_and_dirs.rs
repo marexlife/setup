@@ -114,7 +114,7 @@ function(Dependencies_Pull)
        GIT_TAG v1.17.0
     )
 
-    FetchContent_MakeAvailable(CORE_TYPES ABSL SPDLOG)
+    FetchContent_MakeAvailable(ABSL SPDLOG)
 endfunction()"
                 .to_string(),
         )],
@@ -188,7 +188,6 @@ add_executable(${{PROJECT_NAME}}
     
 target_link_libraries(${{PROJECT_NAME}} PUBLIC
     spdlog
-    CoreTypes
     absl::base
 )"
         ),
