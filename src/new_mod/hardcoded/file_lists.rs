@@ -6,6 +6,9 @@ pub fn get_mod_root_files(
     name: &str,
     project_name: &str,
 ) -> Vec<FileData> {
+    let class_name =
+        to_pascal_case(name.to_string());
+
     vec![FileData::new(
         "CMakeLists.txt".to_string(),
         format!(
@@ -24,7 +27,7 @@ add_library(${{PROJECT_NAME}}
 )
 
 target_precompile_headers(${{PROJECT_NAME}} PUBLIC
-    ${{CUSTOM_HEADER_PATH}}/{name}Export.pch
+    ${{CUSTOM_HEADER_PATH}}/{class_name}Export.pch
 )
 
 target_include_directories(${{PROJECT_NAME}} PUBLIC
