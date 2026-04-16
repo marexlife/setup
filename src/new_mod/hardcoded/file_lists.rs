@@ -25,7 +25,7 @@ add_library(${{PROJECT_NAME}}
 )
 
 target_precompile_headers(${{PROJECT_NAME}} PUBLIC
-    ${{CUSTOM_HEADER_PATH}}/{name}.h
+    ${{CUSTOM_HEADER_PATH}}/{name}Export.h
 )
 
 target_include_directories(${{PROJECT_NAME}} PUBLIC
@@ -61,18 +61,13 @@ pub fn get_public_files(
     name: &str,
     project_name: &str,
 ) -> Vec<FileData> {
-    let header_guard =
-        to_screaming_snake_case(format!(
-            "{project_name}_{name}_{name}_H_",
-        ));
-
     let class_name = format!("C{name}");
 
     vec![FileData::new(
-        format!("{name}.h"),
+        format!("{class_name}.h"),
         format!(
-            "#ifndef {header_guard}
-#define {header_guard}
+            "#pragma once
+
 namespace {project_name}::{name}
 {{
 class {class_name} final
@@ -80,13 +75,15 @@ class {class_name} final
   public:
     explicit {class_name}() = delete;
     ~{class_name}() = delete;
+
     {class_name}& operator=(const {class_name}&) = delete;
     {class_name}& operator=({class_name}&&) = delete;
     {class_name}(const {class_name}&) = delete;
     {class_name}({class_name}&&) = delete;
 }};
-}} // namespace {project_name}::{name}
-#endif // {header_guard}",
+}} // namespace {project_name}::{name}"
         ),
-    )]
+    ),
+    FileData::new(format!("{class_name}Export.pch"), format!("#pragma once
+#include \"{project_name}.h\""))]
 }

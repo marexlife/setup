@@ -1,4 +1,5 @@
 use crate::file_data::FileData;
+use crate::utils::to_screaming_snake_case;
 use crate::{
     shared,
     utils::{
@@ -7,7 +8,6 @@ use crate::{
     },
 };
 
-const BUILD_DIR_NAME: &str = "build";
 const SOURCE_DIR_NAME: &str = "Source";
 const THIRD_PARTY_DIR_NAME: &str = "ThirdParty";
 const MAIN_MOD_DIR_NAME: &str = "Main";
@@ -39,7 +39,7 @@ add_subdirectory(ThirdParty)
         ),
         FileData::new(
             ".clang-tidy".to_string(),
-            "Checks: 'cppcoreguidelines-*'"
+            "Checks: 'cppcoreguidelines-*',readability-*,performance-*"
                 .to_string(),
         ),
         FileData::new(
@@ -55,16 +55,6 @@ ColumnLimit: 70"
             r"/build
 /.cache"
                 .to_string(),
-        ),
-        FileData::new(
-            "run.py".to_string(),
-            format!(
-                "from subprocess import run
-
-run([\"cmake\", \".\", \"-B\", \"{BUILD_DIR_NAME}\"], check=True)
-run([\"cmake\", \"--build\", \"{BUILD_DIR_NAME}\"], check=True)
-run([\"./{BUILD_DIR_NAME}/Source/Main/{name}\"], check=True)"
-            ),
         ),
     ],
     );
@@ -99,18 +89,9 @@ Dependencies_Pull()
             "cmake_minimum_required(VERSION 3.20)
 project(Dependencies)
 
-include(${CMAKE_SOURCE_DIR}/CMake/Logger.cmake)
-
 include(FetchContent)
 
 function(Dependencies_Pull)
-    Logger_LogInfo(\"pulling dependencies\")
-
-    FetchContent_Declare(CORE_TYPES
-       GIT_REPOSITORY https://github.com/marexlife/CoreTypes.git
-       GIT_TAG V0.1
-    )
-
     FetchContent_Declare(ABSL
        GIT_REPOSITORY https://github.com/abseil/abseil-cpp.git
        GIT_TAG lts_2026_01_07
@@ -134,18 +115,20 @@ endfunction()"
 pub(crate) fn create_cmake_directory_and_files(
     parent: &str,
 ) -> String {
+    let cmake_var_name_part =
+        to_screaming_snake_case(
+            parent.to_string(),
+        );
+
     create_sub_directory_and_files(
         parent,
         CMAKE_DIR_NAME,
         vec![FileData::new(
-            "Logger.cmake".to_string(),
-            "cmake_minimum_required(VERSION 3.20)
+            "Flags.cmake".to_string(),
+            format!("cmake_minimum_required(VERSION 3.20)
 
-function(Logger_LogInfo INFO_MESSAGE)
-    message(\"Info: ${INFO_MESSAGE}\")
-endfunction()
-"
-            .to_string(),
+set({cmake_var_name_part}_COMPILER_FLAGS)"
+        ),
         )],
     )
 }
