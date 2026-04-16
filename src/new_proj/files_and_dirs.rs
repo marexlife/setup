@@ -130,9 +130,7 @@ pub(crate) fn create_cmake_directory_and_files(
     parent: &str,
 ) -> String {
     let cmake_var_name_part =
-        to_screaming_snake_case(
-            parent.to_string(),
-        );
+        to_screaming_snake_case(parent);
 
     create_sub_directory_and_files(
         parent,
@@ -189,9 +187,7 @@ pub(crate) fn mod_directory_and_files(
     parent: &str,
 ) -> String {
     let cmake_var_name_part =
-        to_screaming_snake_case(
-            project_name.to_string(),
-        );
+        to_screaming_snake_case(project_name);
 
     create_sub_directory_and_files(
         parent,

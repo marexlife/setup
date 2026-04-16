@@ -3,8 +3,36 @@ use std::{
     io::Write,
 };
 
+pub fn to_snake_case(text: &str) -> String {
+    let mut previous: Option<char> = None;
+    let mut buf = String::new();
 
-pub fn to_pascal_case(text: String) -> String {
+    for e in text.chars() {
+        let mut previous_was_underscore = false;
+
+        if let Some(previous) = previous {
+            if previous.is_uppercase() {
+                previous_was_underscore = true;
+            }
+        }
+
+        if e.is_uppercase() && !previous_was_underscore {
+            buf.push('_');
+            buf.push(to_lower(e));
+
+            previous = Some(e);
+            continue;
+        }
+
+        buf.push(to_lower(e));
+
+        previous = Some(e);
+    }
+
+    buf
+}
+
+pub fn to_pascal_case(text: &str) -> String {
     let mut previous: Option<char> = None;
     let mut buf = String::new();
 
@@ -20,7 +48,7 @@ pub fn to_pascal_case(text: String) -> String {
                         }
                     } 
     
-                    Some(e)
+                    Some(to_lower(e))
                 };
 
                 f()
@@ -38,7 +66,7 @@ pub fn to_pascal_case(text: String) -> String {
     buf
 }
 
-pub fn to_screaming_snake_case(text: String) -> String {
+pub fn to_screaming_snake_case(text: &str) -> String {
     let mut buf = String::new();
     let mut pervious: Option<char> = None;
 
@@ -196,6 +224,66 @@ fn to_upper(c: char) -> char {
         'X' => 'X',
         'Y' => 'Y',
         'Z' => 'Z',
+        '_' => '_',
+        '-' => '_',
+        _ => '_',
+    }
+}
+
+fn to_lower(c: char) -> char {
+    match c {
+        'A' => 'a',
+        'B' => 'b',
+        'C' => 'c',
+        'D' => 'd',
+        'E' => 'e',
+        'F' => 'f',
+        'G' => 'g',
+        'H' => 'h',
+        'I' => 'i',
+        'J' => 'j',
+        'K' => 'k',
+        'L' => 'l',
+        'M' => 'm',
+        'N' => 'n',
+        'O' => 'o',
+        'P' => 'p',
+        'Q' => 'q',
+        'R' => 'r',
+        'S' => 's',
+        'T' => 't',
+        'U' => 'u',
+        'V' => 'v',
+        'W' => 'w',
+        'X' => 'x',
+        'Y' => 'y',
+        'Z' => 'z',
+        'a' => 'a',
+        'b' => 'b',
+        'c' => 'c',
+        'd' => 'd',
+        'e' => 'e',
+        'f' => 'f',
+        'g' => 'g',
+        'h' => 'h',
+        'i' => 'i',
+        'j' => 'j',
+        'k' => 'k',
+        'l' => 'l',
+        'm' => 'm',
+        'n' => 'n',
+        'o' => 'o',
+        'p' => 'p',
+        'q' => 'q',
+        'r' => 'r',
+        's' => 's',
+        't' => 't',
+        'u' => 'u',
+        'v' => 'v',
+        'w' => 'w',
+        'x' => 'x',
+        'y' => 'y',
+        'z' => 'z',
         '_' => '_',
         '-' => '_',
         _ => '_',
