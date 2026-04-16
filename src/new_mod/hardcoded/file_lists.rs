@@ -1,7 +1,4 @@
-use crate::{
-    file_data::FileData,
-    utils::to_screaming_snake_case,
-};
+use crate::file_data::FileData;
 
 pub fn get_mod_root_files(
     name: &str,
