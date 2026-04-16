@@ -3,32 +3,36 @@ mod hardcoded;
 use hardcoded::*;
 
 use crate::{
-    run_proj, utils::get_parent_directory,
+    run_proj,
+    utils::{
+        get_parent_directory, to_pascal_case,
+    },
 };
 
 pub fn new_mod(name: &str) {
+    let name = to_pascal_case(&name);
     let project_name = get_parent_directory();
 
     let mod_path = create_mod_root_and_files(
         "Source",
-        name,
-        name,
+        &name,
+        &name,
         &project_name,
     );
 
     let _ = create_public_and_files(
         &mod_path,
-        name,
+        &name,
         &project_name,
     );
 
     let _ = create_private_and_files(
         &mod_path,
-        name,
+        &name,
         &project_name,
     );
 
-    update_source_cmake_lists_txt(name);
+    update_source_cmake_lists_txt(&name);
 
     println!(
         "# Link To {name}:

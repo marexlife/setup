@@ -1,15 +1,20 @@
 use files_and_dirs::*;
 
-use crate::run_proj::run_proj_in_dir;
+use crate::{
+    run_proj::run_proj_in_dir,
+    utils::to_snake_case,
+};
 
 mod files_and_dirs;
 
 pub fn new_proj(name: &str) {
+    let name = to_snake_case(name);
+
     let project_path =
-        create_root_directory_and_files(name);
+        create_root_directory_and_files(&name);
 
     let _ =
-        create_cmake_directory_and_files(name);
+        create_cmake_directory_and_files(&name);
 
     let _ =
         create_third_party_directory_and_files(
@@ -22,7 +27,7 @@ pub fn new_proj(name: &str) {
         );
 
     let main_mod_path = mod_directory_and_files(
-        name,
+        &name,
         &source_path,
     );
 
@@ -30,5 +35,5 @@ pub fn new_proj(name: &str) {
         &main_mod_path,
     );
 
-    run_proj_in_dir(name, name);
+    run_proj_in_dir(&name, &name);
 }
