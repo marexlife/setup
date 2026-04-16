@@ -19,12 +19,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
 
-set(CUSTOM_HEADER_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Public/{project_name}/{name})
 add_library(${{PROJECT_NAME}}
-    ${{CUSTOM_SOURCE_PATH}}/{name}.cpp
+    ${{CMAKE_CURRENT_SOURCE_DIR}}/Private/{class_name}.cpp
 )
 
-set(CUSTOM_SOURCE_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Private)
+set(CUSTOM_HEADER_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Public/{project_name}/{name})
 target_precompile_headers(${{PROJECT_NAME}} PUBLIC
     ${{CUSTOM_HEADER_PATH}}/{class_name}Export.pch
 )
@@ -45,10 +44,13 @@ pub fn get_private_files(
     name: &str,
     project_name: &str,
 ) -> Vec<FileData> {
+    let class_name =
+        to_pascal_case(name.to_string());
+
     vec![FileData::new(
         format!("{name}.cpp"),
         format!(
-            "#include \"{project_name}/{name}/{name}.h\"
+            "#include \"{project_name}/{name}/{class_name}.h\"
 
 namespace {project_name}::{name}
 {{
