@@ -8,9 +8,8 @@ pub fn new_proj(name: &str) {
     let project_path =
         create_root_directory_and_files(name);
 
-    let _ = create_cmake_directory_and_files(
-        &project_path,
-    );
+    let _ =
+        create_cmake_directory_and_files(name);
 
     let _ =
         create_third_party_directory_and_files(

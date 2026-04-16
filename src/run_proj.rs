@@ -21,7 +21,11 @@ pub fn run_proj_in_dir(dir: &str, name: &str) {
             exit(0);
         });
 
-    child.wait().unwrap();
+    let exit_code = child.wait().unwrap();
+
+    if exit_code.code().unwrap() != 0 {
+        exit(-1);
+    }
 
     let mut child = Command::new("cmake")
         .arg("--build")
@@ -35,7 +39,11 @@ pub fn run_proj_in_dir(dir: &str, name: &str) {
             exit(0);
         });
 
-    child.wait().unwrap();
+    let exit_code = child.wait().unwrap();
+
+    if exit_code.code().unwrap() != 0 {
+        exit(-1);
+    }
 
     let execute_path = format!(
         "./{dir}/build/Source/Main/{name}",

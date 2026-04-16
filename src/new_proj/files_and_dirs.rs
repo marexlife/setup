@@ -152,6 +152,12 @@ else()
 
         -fno-exceptions
         -fno-rtti
+
+        -lto
+    )
+
+    set({cmake_var_name_part}_LINKER_FLAGS
+        -lto
     )
 endif()"
         ),
@@ -181,31 +187,43 @@ pub(crate) fn mod_directory_and_files(
     project_name: &str,
     parent: &str,
 ) -> String {
+    let cmake_var_name_part =
+        to_screaming_snake_case(
+            project_name.to_string(),
+        );
+
     create_sub_directory_and_files(
         parent,
         MAIN_MOD_DIR_NAME,
-    vec![FileData::new(
-        "CMakeLists.txt".to_string(),
-        format!(
+        vec![FileData::new(
+            "CMakeLists.txt".to_string(),
+            format!(
             "cmake_minimum_required(VERSION 3.20)
 project({project_name})
 
-set(CUSTOM_SOURCE_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Private)
+include(${{CMAKE_SOURCE_DIR}}/CMake/Flags.cmake)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(${{PROJECT_NAME}}
-    ${{CUSTOM_SOURCE_PATH}}/main.cpp
+    ${{CMAKE_CURRENT_SOURCE_DIR}}/Private/main.cpp
 )
     
 target_link_libraries(${{PROJECT_NAME}} PUBLIC
     spdlog
-    absl::base
+)
+    
+target_compile_options(${{PROJECT_NAME}} PUBLIC
+    ${{{cmake_var_name_part}_COMPILER_FLAGS}}
+)
+    
+target_link_options(${{PROJECT_NAME}} PUBLIC
+    ${{{cmake_var_name_part}_LINKER_FLAGS}}
 )"
         ),
-    )],
+        )],
     )
 }
 

@@ -1,5 +1,8 @@
 use crate::{
-    file_data::FileData, utils::to_pascal_case,
+    file_data::FileData,
+    utils::{
+        to_pascal_case, to_screaming_snake_case,
+    },
 };
 
 pub fn get_mod_root_files(
@@ -9,11 +12,18 @@ pub fn get_mod_root_files(
     let class_name =
         to_pascal_case(name.to_string());
 
+    let cmake_var_name_part =
+        to_screaming_snake_case(
+            project_name.to_string(),
+        );
+
     vec![FileData::new(
         "CMakeLists.txt".to_string(),
         format!(
             "cmake_minimum_required(VERSION 3.20)
 project({name})
+
+include(${{CMAKE_SOURCE_DIR}}/CMake/Flags.cmake)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -34,7 +44,10 @@ target_include_directories(${{PROJECT_NAME}} PUBLIC
     
 target_link_libraries(${{PROJECT_NAME}} PUBLIC
     spdlog
-    absl::base
+)
+    
+target_compile_options(${{PROJECT_NAME}} PUBLIC
+    ${{{cmake_var_name_part}_COMPILER_FLAGS}}
 )"
         ),
     )]
