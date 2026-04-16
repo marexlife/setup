@@ -39,24 +39,21 @@ add_subdirectory(ThirdParty)
         ),
         FileData::new(
             ".clang-tidy".to_string(),
-            "Checks: \"cppcoreguidelines-*,readability-*,performance-*\"
+"Checks: \"cppcoreguidelines-*,readability-*,modernization-*,performance-*\"
 CheckOptions:
   - key: \"readability-identifier-naming.DefaultCase\"
+    value: camelBack
+  - key: \"readability-identifier-naming.ClassCase\"
     value: CamelCase
-  - key: \"readability-identifier-naming.ClassPrefix\"
-    value: C
-  - key: \"readability-identifier-naming.AbstractClassPrefix\"
-    value: I
-  - key: \"readability-identifier-naming.TemplateArgumentPrefix\"
-    value: T
-  - key: \"readability-identifier-naming.StructPrefix\"
-    value: S"
+  - key: \"readability-identifier-naming.NamespaceCase\"
+    value: lower_case
+"
                 .to_string(),
         ),
         FileData::new(
             ".clang-format".to_string(),
             r"---
-BasedOnStyle: Microsoft
+BasedOnStyle: Google
 PointerAlignment: Left
 ColumnLimit: 70
 IdentWidth: 4"
