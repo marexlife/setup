@@ -74,8 +74,8 @@ namespace {project_name}::{name}
 class {class_name} final
 {{
   public:
-    explicit {class_name}() = delete;
-    ~{class_name}() = delete;
+    explicit {class_name}() = default;
+    ~{class_name}() = default;
 
     {class_name}& operator=(const {class_name}&) = delete;
     {class_name}& operator=({class_name}&&) = delete;
