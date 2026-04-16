@@ -37,14 +37,19 @@ pub fn run_proj_in_dir(dir: &str) {
 
     child.wait().unwrap();
 
-    Command::new(format!(
+    let execute_path = format!(
         "./{dir}/build/Source/Main/{}",
         get_parent_directory()
-    ))
-    .spawn()
-    .unwrap_or_else(|e| {
-        eprintln!("Error when executing: {e:?}");
+    );
 
-        exit(0);
-    });
+    Command::new(&execute_path)
+        .spawn()
+        .unwrap_or_else(|e| {
+            eprintln!(
+                "Error when executing: {e:?}.
+Path was: {execute_path}."
+            );
+
+            exit(0);
+        });
 }
