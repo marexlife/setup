@@ -15,17 +15,16 @@ pub fn get_mod_root_files(
             "cmake_minimum_required(VERSION 3.20)
 project({name})
 
-set(CUSTOM_HEADER_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Public/{project_name}/{name})
-set(CUSTOM_SOURCE_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Private)
-
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
 
+set(CUSTOM_HEADER_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Public/{project_name}/{name})
 add_library(${{PROJECT_NAME}}
     ${{CUSTOM_SOURCE_PATH}}/{name}.cpp
 )
 
+set(CUSTOM_SOURCE_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Private)
 target_precompile_headers(${{PROJECT_NAME}} PUBLIC
     ${{CUSTOM_HEADER_PATH}}/{class_name}Export.pch
 )
@@ -87,5 +86,6 @@ class {class_name} final
         ),
     ),
     FileData::new(format!("{class_name}Export.pch"), format!("#pragma once
+
 #include \"{project_name}.h\""))]
 }

@@ -56,7 +56,7 @@ CheckOptions:
 BasedOnStyle: Google
 PointerAlignment: Left
 ColumnLimit: 70
-IdentWidth: 4"
+IndentWidth: 4"
                 .to_string(),
         ),
         FileData::new(
@@ -136,7 +136,24 @@ pub(crate) fn create_cmake_directory_and_files(
             "Flags.cmake".to_string(),
             format!("cmake_minimum_required(VERSION 3.20)
 
-set({cmake_var_name_part}_COMPILER_FLAGS)"
+if (MSVC)
+    set({cmake_var_name_part}_COMPILER_FLAGS
+        /W4
+    )
+else()
+    set({cmake_var_name_part}_COMPILER_FLAGS
+        -Wall
+        -Wextra
+        -Wpedantic
+        -Wconversion
+        -Werror
+
+        -O3
+
+        -fno-exceptions
+        -fno-rtti
+    )
+endif()"
         ),
         )],
     )
