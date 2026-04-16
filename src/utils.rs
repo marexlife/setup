@@ -4,6 +4,40 @@ use std::{
 };
 
 
+pub fn to_pascal_case(text: String) -> String {
+    let mut previous: Option<char> = None;
+    let mut buf = String::new();
+
+    for (i, e) in text.chars().enumerate() {
+        let c: Option<char>  = match e {
+            small if small.is_lowercase() => Some(to_upper(e)),
+            '_' => None,
+            e => {
+                let f = || {
+                    if let Some(previous) = previous {
+                        if previous == '_' {
+                            return Some(to_upper(e));
+                        }
+                    } 
+    
+                    Some(e)
+                };
+
+                f()
+            },
+        };
+
+        
+        if let Some(c) = c {
+            buf.push(c);
+        }
+        
+        previous = Some(e);
+    }
+
+    buf
+}
+
 pub fn to_screaming_snake_case(text: String) -> String {
     let mut buf = String::new();
     let mut pervious: Option<char> = None;
@@ -25,66 +59,6 @@ pub fn to_screaming_snake_case(text: String) -> String {
         pervious = Some(e);
     }
 
-    fn to_upper(c: char) -> char {
-        match c {
-            'a' => 'A',
-            'b' => 'B',
-            'c' => 'C',
-            'd' => 'D',
-            'e' => 'E',
-            'f' => 'F',
-            'g' => 'G',
-            'h' => 'H',
-            'i' => 'I',
-            'j' => 'J',
-            'k' => 'K',
-            'l' => 'L',
-            'm' => 'M',
-            'n' => 'N',
-            'o' => 'O',
-            'p' => 'P',
-            'q' => 'Q',
-            'r' => 'R',
-            's' => 'S',
-            't' => 'T',
-            'u' => 'U',
-            'v' => 'V',
-            'w' => 'W',
-            'x' => 'X',
-            'y' => 'Y',
-            'z' => 'Z',
-            'A' => 'A',
-            'B' => 'B',
-            'C' => 'C',
-            'D' => 'D',
-            'E' => 'E',
-            'F' => 'F',
-            'G' => 'G',
-            'H' => 'H',
-            'I' => 'I',
-            'J' => 'J',
-            'K' => 'K',
-            'L' => 'L',
-            'M' => 'M',
-            'N' => 'N',
-            'O' => 'O',
-            'P' => 'P',
-            'Q' => 'Q',
-            'R' => 'R',
-            'S' => 'S',
-            'T' => 'T',
-            'U' => 'U',
-            'V' => 'V',
-            'W' => 'W',
-            'X' => 'X',
-            'Y' => 'Y',
-            'Z' => 'Z',
-            '_' => '_',
-            '-' => '_',
-            _ => '_',
-        }
-    }
-
     buf
 }
 
@@ -92,15 +66,15 @@ pub fn get_parent_directory() -> String {
     let dir = std::env::current_dir().unwrap_or_else(|e| {
         panic!("couldn't get current dir with error {e}")
     });
-
-
+    
+    
     match dir.file_name() {
         Some(v) => {
             v.to_os_string()
-                .into_string()
-                .unwrap_or_else(|string| {
-                    panic!("not utf8. OsString is '{string:?}'")
-                })
+            .into_string()
+            .unwrap_or_else(|string| {
+                panic!("not utf8. OsString is '{string:?}'")
+            })
         }
         None => panic!("no file name"),
     }
@@ -112,13 +86,13 @@ pub fn create_files(
 ) {
     for file in files {
         File::create(format!("{}/{}", path, file.get_name()))
-            .unwrap_or_else(|e| 
-                panic!("failed to create '{}' in path {} with error {}", file.get_name(), path, e)
-            )
-            .write_all(file.get_contents().as_bytes())
-            .unwrap_or_else(|e| 
-                panic!("failed to write contents in file '{}' with error {}", file.get_name(), e)
-            );
+        .unwrap_or_else(|e| 
+            panic!("failed to create '{}' in path {} with error {}", file.get_name(), path, e)
+        )
+        .write_all(file.get_contents().as_bytes())
+        .unwrap_or_else(|e| 
+            panic!("failed to write contents in file '{}' with error {}", file.get_name(), e)
+        );
     }
 }
 
@@ -126,7 +100,7 @@ pub fn create_and_get_directory(name: String) -> String {
     create_dir(name.clone()).unwrap_or_else(|e| {
         panic!("Attempt to create directory '{}' failed with error {}!", name, e);
     });
-
+    
     name
 }
 
@@ -135,9 +109,9 @@ pub fn create_and_get_sub_directory(
     sub: &str,
 ) -> String {
     let new = format!("{}/{}", parent, sub);
-
+    
     create_and_get_directory(new.clone());
-
+    
     new
 }
 
@@ -148,10 +122,10 @@ pub fn create_sub_directory_and_files(
     files: Vec<crate::file_data::FileData>,
 ) -> String {
     let path =
-        create_and_get_sub_directory(parent, sub);
-
+    create_and_get_sub_directory(parent, sub);
+    
     create_files(&path, files);
-
+    
     path
 }
 
@@ -161,12 +135,69 @@ pub fn create_directory_and_files(
     files: Vec<crate::file_data::FileData>,
 ) -> String {
     let path =
-        create_and_get_directory(dir.to_string());
-
+    create_and_get_directory(dir.to_string());
+    
     create_files(&path, files);
-
+    
     path
 }
 
-
-
+fn to_upper(c: char) -> char {
+    match c {
+        'a' => 'A',
+        'b' => 'B',
+        'c' => 'C',
+        'd' => 'D',
+        'e' => 'E',
+        'f' => 'F',
+        'g' => 'G',
+        'h' => 'H',
+        'i' => 'I',
+        'j' => 'J',
+        'k' => 'K',
+        'l' => 'L',
+        'm' => 'M',
+        'n' => 'N',
+        'o' => 'O',
+        'p' => 'P',
+        'q' => 'Q',
+        'r' => 'R',
+        's' => 'S',
+        't' => 'T',
+        'u' => 'U',
+        'v' => 'V',
+        'w' => 'W',
+        'x' => 'X',
+        'y' => 'Y',
+        'z' => 'Z',
+        'A' => 'A',
+        'B' => 'B',
+        'C' => 'C',
+        'D' => 'D',
+        'E' => 'E',
+        'F' => 'F',
+        'G' => 'G',
+        'H' => 'H',
+        'I' => 'I',
+        'J' => 'J',
+        'K' => 'K',
+        'L' => 'L',
+        'M' => 'M',
+        'N' => 'N',
+        'O' => 'O',
+        'P' => 'P',
+        'Q' => 'Q',
+        'R' => 'R',
+        'S' => 'S',
+        'T' => 'T',
+        'U' => 'U',
+        'V' => 'V',
+        'W' => 'W',
+        'X' => 'X',
+        'Y' => 'Y',
+        'Z' => 'Z',
+        '_' => '_',
+        '-' => '_',
+        _ => '_',
+    }
+}

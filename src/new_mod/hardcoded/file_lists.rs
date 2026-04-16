@@ -1,4 +1,6 @@
-use crate::file_data::FileData;
+use crate::{
+    file_data::FileData, utils::to_pascal_case,
+};
 
 pub fn get_mod_root_files(
     name: &str,
@@ -57,7 +59,8 @@ pub fn get_public_files(
     name: &str,
     project_name: &str,
 ) -> Vec<FileData> {
-    let class_name = format!("C{name}");
+    let class_name =
+        to_pascal_case(name.to_string());
 
     vec![FileData::new(
         format!("{class_name}.h"),
