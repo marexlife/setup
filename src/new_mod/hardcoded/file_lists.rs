@@ -48,13 +48,11 @@ pub fn get_private_files(
         to_pascal_case(name.to_string());
 
     vec![FileData::new(
-        format!("{name}.cpp"),
+        format!("{class_name}.cpp"),
         format!(
             "#include \"{project_name}/{name}/{class_name}.h\"
 
-namespace {project_name}::{name}
-{{
-}} // namespace {project_name}::{name}"
+namespace {project_name}::{name} {{}}"
         ),
     )]
 }
