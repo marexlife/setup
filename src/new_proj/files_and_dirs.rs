@@ -39,7 +39,18 @@ add_subdirectory(ThirdParty)
         ),
         FileData::new(
             ".clang-tidy".to_string(),
-            "Checks: 'cppcoreguidelines-*',readability-*,performance-*"
+            "Checks: \"cppcoreguidelines-*,readability-*,performance-*\"
+CheckOptions:
+  - key: \"readability-identifier-naming.DefaultCase\"
+    value: CamelCase
+  - key: \"readability-identifier-naming.ClassPrefix\"
+    value: C
+  - key: \"readability-identifier-naming.AbstractClassPrefix\"
+    value: I
+  - key: \"readability-identifier-naming.TemplateArgumentPrefix\"
+    value: T
+  - key: \"readability-identifier-naming.StructPrefix\"
+    value: S"
                 .to_string(),
         ),
         FileData::new(
@@ -47,7 +58,8 @@ add_subdirectory(ThirdParty)
             r"---
 BasedOnStyle: Microsoft
 PointerAlignment: Left
-ColumnLimit: 70"
+ColumnLimit: 70
+IdentWidth: 4"
                 .to_string(),
         ),
         FileData::new(
