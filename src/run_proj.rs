@@ -8,7 +8,7 @@ pub fn run_proj() {
         .arg("-B")
         .arg("build")
         .arg("-GNinja")
-        .spawn()
+        .output()
         .unwrap_or_else(|e| {
             eprintln!(
                 "Error when pre building: {e:?}"
@@ -20,7 +20,7 @@ pub fn run_proj() {
     Command::new("cmake")
         .arg("--build")
         .arg("build")
-        .spawn()
+        .output()
         .unwrap_or_else(|e| {
             eprintln!(
                 "Error when building: {e:?}"
@@ -33,7 +33,7 @@ pub fn run_proj() {
         "./build/Source/Main/{}",
         get_parent_directory()
     ))
-    .spawn()
+    .output()
     .unwrap_or_else(|e| {
         eprintln!("Error when executing: {e:?}");
 
