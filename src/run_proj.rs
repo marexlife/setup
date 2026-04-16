@@ -2,9 +2,9 @@ use std::process::{Command, exit};
 
 use crate::utils::get_parent_directory;
 
-pub fn run_proj() {
+pub fn run_proj(dir: &str) {
     let mut child = Command::new("cmake")
-        .arg(".")
+        .arg(format!("./{dir}"))
         .arg("-B")
         .arg("build")
         .arg("-GNinja")
@@ -21,7 +21,7 @@ pub fn run_proj() {
 
     let mut child = Command::new("cmake")
         .arg("--build")
-        .arg("build")
+        .arg(format!("./{dir}/build"))
         .spawn()
         .unwrap_or_else(|e| {
             eprintln!(
@@ -34,7 +34,7 @@ pub fn run_proj() {
     child.wait().unwrap();
 
     Command::new(format!(
-        "./build/Source/Main/{}",
+        "./{dir}/build/Source/Main/{}",
         get_parent_directory()
     ))
     .spawn()

@@ -2,7 +2,9 @@ mod hardcoded;
 
 use hardcoded::*;
 
-use crate::utils::get_parent_directory;
+use crate::{
+    run_proj, utils::get_parent_directory,
+};
 
 pub fn new_mod(name: &str) {
     let project_name = get_parent_directory();
@@ -33,5 +35,7 @@ pub fn new_mod(name: &str) {
 target_link_libraries(${{PROJECT_NAME}} PUBLIC
     {name}
 )"
-    )
+    );
+
+    run_proj();
 }
