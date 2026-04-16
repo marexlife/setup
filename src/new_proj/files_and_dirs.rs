@@ -202,11 +202,8 @@ pub(crate) fn create_private_directory_and_files(
             "main.cpp".to_string(),
             "#include \"spdlog/spdlog.h\"
 
-int main()
-{
-    spdlog::info(\"Hello World!\");
-}"
-            .to_string(),
+int main() { spdlog::info(\"Hello World!\"); }"
+                .to_string(),
         )],
     )
 }
