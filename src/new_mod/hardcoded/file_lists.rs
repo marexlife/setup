@@ -87,5 +87,5 @@ class {class_name} final
     ),
     FileData::new(format!("{class_name}Export.pch"), format!("#pragma once
 
-#include \"{project_name}.h\""))]
+#include \"{class_name}.h\""))]
 }
