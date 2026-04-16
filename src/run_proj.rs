@@ -10,7 +10,7 @@ pub fn run_proj_in_dir(dir: &str) {
     let mut child = Command::new("cmake")
         .arg(format!("./{dir}"))
         .arg("-B")
-        .arg("build")
+        .arg(format!("./{dir}/build"))
         .arg("-GNinja")
         .spawn()
         .unwrap_or_else(|e| {
