@@ -3,10 +3,10 @@ use std::process::{Command, exit};
 use crate::utils::get_parent_directory;
 
 pub fn run_proj() {
-    run_proj_in_dir(".");
+    run_proj_in_dir(".", &get_parent_directory());
 }
 
-pub fn run_proj_in_dir(dir: &str) {
+pub fn run_proj_in_dir(dir: &str, name: &str) {
     let mut child = Command::new("cmake")
         .arg(format!("./{dir}"))
         .arg("-B")
@@ -38,8 +38,7 @@ pub fn run_proj_in_dir(dir: &str) {
     child.wait().unwrap();
 
     let execute_path = format!(
-        "./{dir}/build/Source/Main/{}",
-        get_parent_directory()
+        "./{dir}/build/Source/Main/{name}",
     );
 
     Command::new(&execute_path)

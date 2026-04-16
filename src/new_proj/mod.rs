@@ -31,5 +31,5 @@ pub fn new_proj(name: &str) {
         &main_mod_path,
     );
 
-    run_proj_in_dir(name);
+    run_proj_in_dir(name, name);
 }
