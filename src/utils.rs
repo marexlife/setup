@@ -10,7 +10,7 @@ pub fn to_pascal_case(text: String) -> String {
 
     for (i, e) in text.chars().enumerate() {
         let c: Option<char>  = match e {
-            small if small.is_lowercase() && i == 0 => Some(to_upper(e)),
+            _ if i == 0 => Some(to_upper(e)),
             '_' => None,
             e => {
                 let f = || {
