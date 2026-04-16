@@ -2,7 +2,11 @@ use std::process::{Command, exit};
 
 use crate::utils::get_parent_directory;
 
-pub fn run_proj(dir: &str) {
+pub fn run_proj() {
+    run_proj_in_dir(".");
+}
+
+pub fn run_proj_in_dir(dir: &str) {
     let mut child = Command::new("cmake")
         .arg(format!("./{dir}"))
         .arg("-B")

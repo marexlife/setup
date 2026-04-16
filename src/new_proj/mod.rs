@@ -1,5 +1,7 @@
 use files_and_dirs::*;
 
+use crate::run_proj::run_proj_in_dir;
+
 mod files_and_dirs;
 
 pub fn new_proj(name: &str) {
@@ -28,4 +30,6 @@ pub fn new_proj(name: &str) {
     let _ = create_private_directory_and_files(
         &main_mod_path,
     );
+
+    run_proj_in_dir(name);
 }
