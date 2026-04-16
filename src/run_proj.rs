@@ -46,7 +46,7 @@ pub fn run_proj_in_dir(dir: &str, name: &str) {
         .unwrap_or_else(|e| {
             eprintln!(
                 "Error when executing: {e:?}.
-Path was: {execute_path}."
+Path was: '{execute_path}'."
             );
 
             exit(0);
