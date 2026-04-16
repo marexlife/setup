@@ -106,12 +106,17 @@ function(Dependencies_Pull)
        GIT_TAG lts_2026_01_07
     )
 
-   FetchContent_Declare(SPDLOG
+    FetchContent_Declare(SPDLOG
        GIT_REPOSITORY https://github.com/gabime/spdlog.git
        GIT_TAG v1.17.0
     )
 
-    FetchContent_MakeAvailable(ABSL SPDLOG)
+    FetchContent_Declare(FMT
+       GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+       GIT_TAG 12.1.0
+    )
+    
+    FetchContent_MakeAvailable(ABSL SPDLOG FMT)
 endfunction()"
                 .to_string(),
         )],
@@ -152,13 +157,9 @@ else()
 
         -fno-exceptions
         -fno-rtti
-
-        -lto
     )
 
-    set({cmake_var_name_part}_LINKER_FLAGS
-        -lto
-    )
+    set({cmake_var_name_part}_LINKER_FLAGS)
 endif()"
         ),
         )],
@@ -174,10 +175,10 @@ pub(crate) fn create_source_directory_and_files(
         SOURCE_DIR_NAME,
         vec![FileData::new(
         "CMakeLists.txt".to_string(),
-        r"cmake_minimum_required(VERSION 3.20)
+        format!("cmake_minimum_required(VERSION 3.20)
 
-add_subdirectory(Main)"
-            .to_string(),
+add_subdirectory({MAIN_MOD_DIR_NAME})"
+        ),
     )],
     )
 }
@@ -210,11 +211,12 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(${{PROJECT_NAME}}
     ${{CMAKE_CURRENT_SOURCE_DIR}}/Private/main.cpp
 )
-    
+
 target_link_libraries(${{PROJECT_NAME}} PUBLIC
-    spdlog
+    absl::base
+    fmt
 )
-    
+
 target_compile_options(${{PROJECT_NAME}} PUBLIC
     ${{{cmake_var_name_part}_COMPILER_FLAGS}}
 )
@@ -235,9 +237,9 @@ pub(crate) fn create_private_directory_and_files(
         parent,
         vec![FileData::new(
             "main.cpp".to_string(),
-            "#include \"spdlog/spdlog.h\"
+            "#include \"fmt/base.h\"
 
-int main() { spdlog::info(\"Hello World!\"); }"
+int main() { fmt::println(\"Hello World!\"); }"
                 .to_string(),
         )],
     )

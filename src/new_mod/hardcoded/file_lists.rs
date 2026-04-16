@@ -33,19 +33,18 @@ add_library(${{PROJECT_NAME}}
     ${{CMAKE_CURRENT_SOURCE_DIR}}/Private/{class_name}.cpp
 )
 
-set(CUSTOM_HEADER_PATH ${{CMAKE_CURRENT_SOURCE_DIR}}/Public/{project_name}/{name})
 target_precompile_headers(${{PROJECT_NAME}} PUBLIC
-    ${{CUSTOM_HEADER_PATH}}/{class_name}Export.pch
+    ${{CMAKE_CURRENT_SOURCE_DIR}}/Public/{project_name}/{name}/{class_name}Export.pch
 )
 
 target_include_directories(${{PROJECT_NAME}} PUBLIC
     Public
 )
-    
+
 target_link_libraries(${{PROJECT_NAME}} PUBLIC
-    spdlog
+    absl::base
 )
-    
+
 target_compile_options(${{PROJECT_NAME}} PUBLIC
     ${{{cmake_var_name_part}_COMPILER_FLAGS}}
 )"
