@@ -53,7 +53,7 @@ CheckOptions:
         FileData::new(
             ".clang-format".to_string(),
             r"---
-BasedOnStyle: Google
+BasedOnStyle: LLVM
 PointerAlignment: Left
 ColumnLimit: 70
 IndentWidth: 4"

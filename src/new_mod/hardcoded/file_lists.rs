@@ -85,7 +85,7 @@ pub fn get_public_files(
 
 namespace {project_name_namespace_name}::{name_namespace_name} {{
 class {class_name} final {{
-   public:
+  public:
     explicit {class_name}() = default;
     ~{class_name}() = default;
 
