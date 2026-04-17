@@ -38,21 +38,23 @@ add_subdirectory(ThirdParty)
             ),
         ),
         FileData::new(
-            ".clang-tidy".to_string(),
-"Checks: \"cppcoreguidelines-*,readability-*,google-*,performance-*,modernization-*\"
+            ".clang-tidy".to_string(),"
+Checks: \"cppcoreguidelines-*,readability-*,performance-*\"
 CheckOptions:
   - key: \"readability-identifier-naming.DefaultCase\"
-    value: camelBack
-  - key: \"readability-identifier-naming.ClassCase\"
     value: CamelCase
   - key: \"readability-identifier-naming.NamespaceCase\"
     value: lower_case
-  - key: \"readability-identifier-naming.StructCase\"
-    value: CamelCase
-  - key: \"readability-identifier-naming.EnumCase\"
-    value: CamelCase
-  - key: \"readability-identifier-naming.EnumConstantCase\"
-    value: CamelCase
+  - key: \"readability-identifier-naming.LocalVariableCase\"
+    value: camelBack
+  - key: \"readability-identifier-naming.MemberCase\"
+    value: camelBack
+  - key: \"readability-identifier-naming.FunctionCase\"
+    value: camelBack
+  - key: \"readability-identifier-naming.MethodCase\"
+    value: camelBack
+  - key: \"readability-identifier-naming.ParameterCase\"
+    value: camelBack
 "
                 .to_string(),
         ),
