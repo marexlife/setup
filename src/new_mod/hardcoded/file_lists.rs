@@ -83,11 +83,9 @@ pub fn get_public_files(
         format!(
             "#pragma once
 
-namespace {project_name_namespace_name}::{name_namespace_name}
-{{
-class {class_name} final
-{{
-  public:
+namespace {project_name_namespace_name}::{name_namespace_name} {{
+class {class_name} final {{
+   public:
     explicit {class_name}() = default;
     ~{class_name}() = default;
 
