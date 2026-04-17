@@ -39,7 +39,7 @@ add_subdirectory(ThirdParty)
         ),
         FileData::new(
             ".clang-tidy".to_string(),
-"Checks: \"cppcoreguidelines-*,readability-*,google-*,performance-*\"
+"Checks: \"cppcoreguidelines-*,readability-*,google-*,performance-*,modernization-*\"
 CheckOptions:
   - key: \"readability-identifier-naming.DefaultCase\"
     value: camelBack
@@ -47,6 +47,12 @@ CheckOptions:
     value: CamelCase
   - key: \"readability-identifier-naming.NamespaceCase\"
     value: lower_case
+  - key: \"readability-identifier-naming.StructCase\"
+    value: CamelCase
+  - key: \"readability-identifier-naming.EnumCase\"
+    value: CamelCase
+  - key: \"readability-identifier-naming.EnumConstantCase\"
+    value: CamelCase
 "
                 .to_string(),
         ),
