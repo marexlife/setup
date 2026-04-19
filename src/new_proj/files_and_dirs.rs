@@ -224,7 +224,7 @@ target_link_libraries(${{PROJECT_NAME}} PUBLIC
 target_compile_options(${{PROJECT_NAME}} PUBLIC
     ${{{cmake_var_name_part}_COMPILER_FLAGS}}
 )
-    
+
 target_link_options(${{PROJECT_NAME}} PUBLIC
     ${{{cmake_var_name_part}_LINKER_FLAGS}}
 )"
