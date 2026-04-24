@@ -8,10 +8,10 @@ use crate::{
     },
 };
 
-const SOURCE_DIR_NAME: &str = "Source";
-const THIRD_PARTY_DIR_NAME: &str = "ThirdParty";
-const MAIN_MOD_DIR_NAME: &str = "Main";
-const CMAKE_DIR_NAME: &str = "CMake";
+const SOURCE_DIR_NAME: &str = "src";
+const THIRD_PARTY_DIR_NAME: &str = "vendor";
+const MAIN_MOD_DIR_NAME: &str = "main";
+const CMAKE_DIR_NAME: &str = "cmake";
 
 #[must_use]
 pub(crate) fn create_root_directory_and_files(
@@ -32,8 +32,8 @@ project({name})
 
 set(CMAKE_BUILD_TYPE Release)
 
-add_subdirectory(Source)
-add_subdirectory(ThirdParty)
+add_subdirectory(src)
+add_subdirectory(vendor)
 "
             ),
         ),
@@ -41,30 +41,19 @@ add_subdirectory(ThirdParty)
             ".clang-tidy".to_string(),"
 Checks: \"cppcoreguidelines-*,readability-*,performance-*\"
 CheckOptions:
-  - key: \"readability-identifier-naming.DefaultCase\"
-    value: CamelCase
   - key: \"readability-identifier-naming.NamespaceCase\"
     value: lower_case
   - key: \"readability-identifier-naming.LocalVariableCase\"
-    value: camelBack
-  - key: \"readability-identifier-naming.MemberCase\"
-    value: camelBack
-  - key: \"readability-identifier-naming.FunctionCase\"
-    value: camelBack
-  - key: \"readability-identifier-naming.MethodCase\"
-    value: camelBack
+    value: lower_case
   - key: \"readability-identifier-naming.ParameterCase\"
-    value: camelBack
+    value: lower_case
 "
                 .to_string(),
         ),
         FileData::new(
             ".clang-format".to_string(),
             r"---
-BasedOnStyle: LLVM
-PointerAlignment: Left
-ColumnLimit: 70
-IndentWidth: 4"
+BasedOnStyle: Google"
                 .to_string(),
         ),
         FileData::new(
@@ -91,7 +80,7 @@ pub(crate) fn create_third_party_directory_and_files(
             format!("cmake_minimum_required(VERSION 3.20)
 project({THIRD_PARTY_DIR_NAME})
 
-include(${{CMAKE_CURRENT_SOURCE_DIR}}/CMake/Dependencies.cmake)
+include(${{CMAKE_CURRENT_SOURCE_DIR}}/cMake/dependencies.cmake)
 
 Dependencies_Pull()
 "),
@@ -155,7 +144,6 @@ else()
     set({cmake_var_name_part}_COMPILER_FLAGS
         -Wall
         -Wextra
-        -Wpedantic
         -Wconversion
         -Werror
 
@@ -206,7 +194,7 @@ pub(crate) fn mod_directory_and_files(
             "cmake_minimum_required(VERSION 3.20)
 project({project_name})
 
-include(${{CMAKE_SOURCE_DIR}}/CMake/Flags.cmake)
+include(${{CMAKE_SOURCE_DIR}}/cmake/flags.cmake)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -218,6 +206,7 @@ add_executable(${{PROJECT_NAME}}
 
 target_link_libraries(${{PROJECT_NAME}} PUBLIC
     absl::base
+    absl::statusor
     fmt
 )
 
