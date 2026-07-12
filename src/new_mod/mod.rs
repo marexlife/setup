@@ -5,12 +5,12 @@ use hardcoded::*;
 use crate::{
     run_proj,
     utils::{
-        get_parent_directory, to_pascal_case,
+        get_parent_directory, to_snake_case,
     },
 };
 
 pub fn new_mod(name: &str) {
-    let name = to_pascal_case(&name);
+    let name = to_snake_case(&name);
     let project_name = get_parent_directory();
 
     let mod_path = create_mod_root_and_files(
