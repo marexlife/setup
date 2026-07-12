@@ -91,8 +91,5 @@ namespace {project_name_namespace_name}::{name_namespace_name} {{
 }} // namespace {project_name_namespace_name}::{name_namespace_name}
 #endif // {include_guard}"
         ),
-    ),
-    FileData::new(format!("{class_name}Export.pch"), format!("#pragma once
-
-#include \"{class_name}.h\""))]
+    )]
 }

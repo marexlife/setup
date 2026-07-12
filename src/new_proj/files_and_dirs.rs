@@ -201,7 +201,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(${{PROJECT_NAME}}
-    ${{CMAKE_CURRENT_SOURCE_DIR}}/Private/main.cpp
+    ${{CMAKE_CURRENT_SOURCE_DIR}}/Private/main.cc
 )
 
 target_link_libraries(${{PROJECT_NAME}} PUBLIC
@@ -229,7 +229,7 @@ pub(crate) fn create_private_directory_and_files(
     shared::create_private_and_files(
         parent,
         vec![FileData::new(
-            "main.cpp".to_string(),
+            "main.cc".to_string(),
             "#include \"fmt/base.h\"
 
 int main() { fmt::println(\"Hello World!\"); }"
