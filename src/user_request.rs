@@ -38,10 +38,10 @@ impl UserRequest {
         for (i, arg) in
             std::env::args().enumerate()
         {
-            if i == 1 {
-                instruction = Some(arg)
-            } else if i == 2 {
-                name = Some(arg)
+            match i {
+                1 => instruction = Some(arg),
+                2 => name = Some(arg),
+                _ => {}
             }
         }
 

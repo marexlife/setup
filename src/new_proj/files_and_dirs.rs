@@ -80,7 +80,7 @@ pub(crate) fn create_third_party_directory_and_files(
             format!("cmake_minimum_required(VERSION 3.20)
 project({THIRD_PARTY_DIR_NAME})
 
-include(${{CMAKE_CURRENT_SOURCE_DIR}}/cMake/dependencies.cmake)
+include(${{CMAKE_CURRENT_SOURCE_DIR}}/cmake/Dependencies.cmake)
 
 Dependencies_Pull()
 "),
@@ -194,7 +194,7 @@ pub(crate) fn mod_directory_and_files(
             "cmake_minimum_required(VERSION 3.20)
 project({project_name})
 
-include(${{CMAKE_SOURCE_DIR}}/cmake/flags.cmake)
+include(${{CMAKE_SOURCE_DIR}}/cmake/Flags.cmake)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
