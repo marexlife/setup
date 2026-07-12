@@ -2,12 +2,7 @@ mod hardcoded;
 
 use hardcoded::*;
 
-use crate::{
-    run_proj,
-    utils::{
-        get_parent_directory, to_snake_case,
-    },
-};
+use crate::{run_proj, utils::*};
 
 pub fn new_mod(name: &str) {
     let name = to_snake_case(&name);
