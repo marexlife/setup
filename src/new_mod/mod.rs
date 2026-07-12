@@ -14,7 +14,7 @@ pub fn new_mod(name: &str) {
     let project_name = get_parent_directory();
 
     let mod_path = create_mod_root_and_files(
-        "Source",
+        "src",
         &name,
         &name,
         &project_name,

@@ -29,7 +29,7 @@ pub fn update_source_cmake_lists_txt(
     const CMAKE_LISTS_TXT: &'static str =
         "CMakeLists.txt";
     let mut b = PathBuf::new();
-    b.push("Source");
+    b.push("src");
     b.push(CMAKE_LISTS_TXT);
     let path = b.as_path();
 

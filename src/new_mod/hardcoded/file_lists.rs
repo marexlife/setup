@@ -21,7 +21,7 @@ pub fn get_mod_root_files(
             "cmake_minimum_required(VERSION 3.20)
 project({name})
 
-include(${{CMAKE_SOURCE_DIR}}/cmake/flags.cmake)
+include(${{CMAKE_SOURCE_DIR}}/cmake/Flags.cmake)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
