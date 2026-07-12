@@ -29,7 +29,7 @@ pub fn run_proj_in_dir(dir: &str, name: &str) {
 
     let mut child = Command::new("cmake")
         .arg("--build")
-        .arg(format!("./{dir}/build"))
+        .arg(format!("build"))
         .spawn()
         .unwrap_or_else(|e| {
             eprintln!(
@@ -45,9 +45,8 @@ pub fn run_proj_in_dir(dir: &str, name: &str) {
         exit(-1);
     }
 
-    let execute_path = format!(
-        "./{dir}/build/Source/Main/{name}",
-    );
+    let execute_path =
+        format!("./build/src/main/{name}",);
 
     Command::new(&execute_path)
         .spawn()
